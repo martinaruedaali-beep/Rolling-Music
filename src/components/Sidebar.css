@@ -1,0 +1,94 @@
+:root {
+
+--primary: #E50914;        /* Rojo principal */
+--primary-dark: #A80008;   /* Rojo oscuro */
+--primary-light: #FF1A24;  /* Rojo para hover */
+--background: #050505;     /* Fondo general */
+--surface: #0D0D0D;        /* Tarjetas y navbar */
+--surface-light: #151515;  /* Elementos secundarios */
+--text: #FFFFFF;           /* Texto principal */
+--text-muted: #A6A6A6;     /* Texto secundario */
+--text-dark: #666666;      /* Texto menos importante */
+--border: #292929;         /* Bordes */
+--border-red: #5C1014;     /* Bordes con rojo */
+--success: #20C76A;        /* Disponible / correcto */
+--danger: #E50914;         /* Error / eliminar */
+/* =========================
+   TIPOGRAFÍAS
+   ========================= */
+--font-title: "Bebas Neue", sans-serif;
+--font-heading: "Oswald", sans-serif;
+--font-text: "Inter", sans-serif;
+/* =========================
+   SOMBRAS / EFECTOS
+   ========================= */
+--shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+--shadow-red:
+    0 0 10px rgba(229, 9, 20, 0.35);
+--glow-red:
+    0 0 15px rgba(229, 9, 20, 0.5);
+/* =========================
+   BORDES
+   ========================= */
+--radius-sm: 5px;
+--radius-md: 10px;
+--radius-lg: 16px;
+}
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  box-sizing: border-box;
+  z-index: 100;
+  background: var(--background);
+  color: var(--text);
+  border-right: 1px solid var(--border);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 0 10px 20px;
+  border-bottom: 1px solid var(--primary);
+}
+
+.logo-image {
+   width: 80px;
+}
+
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-dark);
+  font-family: var(--font-text);
+  font-size: 17px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-item:hover {
+  color: var(--primary-light);
+}
+
