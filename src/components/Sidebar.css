@@ -85,10 +85,37 @@
   text-align: left;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: 0,3s;
 }
 
 .nav-item:hover {
   color: var(--primary-light);
 }
 
+.premium {
+  width: 180px;
+  border: 3px solid var(--primary);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  margin-top: 200px;
+  padding: 5px 10px;
+  gap: 10px;
+  text-decoration: none;
+  transition: 0,3s;
+}
+
+.premium:hover{
+  box-shadow: var(--shadow-red);
+}
+
+
+
+.titlePremium{
+  font-family: var(--font-text);
+  font-size: 15px;
+  color: var(--primary);
+}
+.iconPremium{
+  color: var(--primary);
+}
