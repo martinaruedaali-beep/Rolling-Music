@@ -32,7 +32,7 @@ function Sidebar() {
 
         <a href='#' className='premium'>
         <Crown size={22} className='iconPremium'/>
-        <p className='titlePremium'>RollingRock Premium</p> 
+        <p className='titlePremium'>Contrata Premium</p> 
         </a>
       
       </nav>
