@@ -1,47 +1,44 @@
 :root {
-
---primary: #E50914;        /* Rojo principal */
---primary-dark: #A80008;   /* Rojo oscuro */
---primary-light: #FF1A24;  /* Rojo para hover */
---background: #050505;     /* Fondo general */
---surface: #0D0D0D;        /* Tarjetas y navbar */
---surface-light: #151515;  /* Elementos secundarios */
---text: #FFFFFF;           /* Texto principal */
---text-muted: #A6A6A6;     /* Texto secundario */
---text-dark: #666666;      /* Texto menos importante */
---border: #292929;         /* Bordes */
---border-red: #5C1014;     /* Bordes con rojo */
---success: #20C76A;        /* Disponible / correcto */
---danger: #E50914;         /* Error / eliminar */
-/* =========================
+  --primary: #e50914; /* Rojo principal */
+  --primary-dark: #a80008; /* Rojo oscuro */
+  --primary-light: #ff1a24; /* Rojo para hover */
+  --background: #050505; /* Fondo general */
+  --surface: #0d0d0d; /* Tarjetas y navbar */
+  --surface-light: #151515; /* Elementos secundarios */
+  --text: #ffffff; /* Texto principal */
+  --text-muted: #a6a6a6; /* Texto secundario */
+  --text-dark: #666666; /* Texto menos importante */
+  --border: #292929; /* Bordes */
+  --border-red: #5c1014; /* Bordes con rojo */
+  --success: #20c76a; /* Disponible / correcto */
+  --danger: #e50914; /* Error / eliminar */
+  /* =========================
    TIPOGRAFÍAS
    ========================= */
---font-title: "Bebas Neue", sans-serif;
---font-heading: "Oswald", sans-serif;
---font-text: "Inter", sans-serif;
-/* =========================
+  --font-title: "Bebas Neue", sans-serif;
+  --font-heading: "Oswald", sans-serif;
+  --font-text: "Inter", sans-serif;
+  /* =========================
    SOMBRAS / EFECTOS
    ========================= */
---shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
---shadow-red:
-    0 0 10px rgba(229, 9, 20, 0.35);
---glow-red:
-    0 0 15px rgba(229, 9, 20, 0.5);
-/* =========================
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-red: 0 0 10px rgba(229, 9, 20, 0.35);
+  --glow-red: 0 0 15px rgba(229, 9, 20, 0.5);
+  /* =========================
    BORDES
    ========================= */
---radius-sm: 5px;
---radius-md: 10px;
---radius-lg: 16px;
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
 }
-
 
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 220px;
+  width: 200px;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   padding: 20px 14px;
@@ -60,9 +57,8 @@
 }
 
 .logo-image {
-   width: 80px;
+  width: 80px;
 }
-
 
 .sidebar-nav {
   display: flex;
@@ -81,7 +77,7 @@
   background: transparent;
   color: var(--text-dark);
   font-family: var(--font-text);
-  font-size: 17px;
+  font-size: 15px;
   text-align: left;
   text-decoration: none;
   cursor: pointer;
@@ -93,110 +89,66 @@
 }
 
 .premium {
-  width: 165px;
-  border: 3px solid var(--primary);
+  width: 95%;
+  border: 2px solid var(--primary);
   border-radius: 5px;
   display: flex;
   align-items: center;
-  margin-top: 210px;
-  padding: 5px 10px;
-  gap: 10px;
+  margin-top: auto;
+  padding-left: 7px;
+  gap: 3px;
   text-decoration: none;
   transition: 0.3s;
 }
 
-.premium:hover{
+.premium:hover {
   box-shadow: var(--shadow-red);
 }
 
-
-
-.titlePremium{
+.titlePremium {
   font-family: var(--font-text);
   font-size: 15px;
   color: var(--primary);
 }
-.iconPremium{
+.iconPremium {
   color: var(--primary);
   margin-left: 3px;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 75px;
-    padding: 12px 8px;
-  }
-
-  .sidebar-header {
-    justify-content: center;
-    padding: 0 0 15px;
-  }
-
-  .logo-image {
-    width: 48px;
-  }
-
-  .sidebar-nav {
-    gap: 8px;
-    margin-top: 16px;
-  }
-
-  .nav-item {
-    justify-self: start;
-    padding: 12px;
-  }
-
-  .nav-item span {
-    display: none;
-  }
-
-  .premium {
-    width: auto;
-    justify-content: start;
-    margin-top: auto;
-    padding: 8px;
-    border: none;
-  }
-
-  .titlePremium {
-    display: none;
-  }
-  .iconPremium {
-    width: 22px;
-    margin-left: 5px;
-  }
+.boton-hamburguesa {
+  display: none;
 }
 
+@media (max-width: 991px) {
 
-@media (max-width: 480px) {
-  .sidebar {
-    width: 55px;
-    padding: 12px 6px;
-  }
+  .boton-hamburguesa {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
 
-  .logo-image {
-    width: 38px;
-  }
-
-  .nav-item {
-    padding: 10px;
-    gap: 0;
-  }
-
-  .nav-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .premium {
-    padding: 6px;
-    border-width: 2px;
+    background: transparent;
     border: none;
+    color: var(--primary);
+    font-size: 30px;
+    cursor: pointer;
   }
 
-  .iconPremium {
-    width: 22px;
-    height: 22px;
-    margin-left: 3px;
+  .sidebar {
+    left: -220px;
+    transition: left 0.3s ease;
   }
+
+  
+.logo-image {
+  margin: 30px 0px 0 20px;
+  width: 80px;
+
+}
+
+  .sidebar.abierto {
+    left: 0;
+  }
+
 }

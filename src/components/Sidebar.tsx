@@ -1,10 +1,22 @@
-import { Home, Library, Heart, Users, Music, Crown } from 'lucide-react'
+import { Home, Library, Heart, Users, Music, Crown, Menu } from 'lucide-react'
 import logo from '../assets/icon rolling rock.png'
 import './Sidebar.css'
+import { useState } from 'react'
+
 
 function Sidebar() {
-  return (
-    <aside className="sidebar">
+
+const[ abierto, setAbierto]= useState (false)
+  
+return (
+   <>
+    <button
+        className="boton-hamburguesa"
+        onClick={() => setAbierto(!abierto)}
+      >
+     <Menu />
+    </button>
+    <aside className={abierto ? "sidebar abierto" : "sidebar"}>
       <a href='#' className="sidebar-header">
         <img className="logo-image" src={logo} alt="Rolling Music" />
       </a>
@@ -28,15 +40,15 @@ function Sidebar() {
         <a href="#" className="nav-item">
           <Music size={22} className="nav-icon" />
           <span>Géneros</span>
-        </a>
-
-        <a href='#' className='premium'>
+        </a> 
+      </nav>
+      <a href='#' className='premium'>
         <Crown size={22} className='iconPremium'/>
         <p className='titlePremium'>Contrata Premium</p> 
         </a>
       
-      </nav>
     </aside>
+    </> 
   )
 }
 
