@@ -1,4 +1,10 @@
 import "./Reproductor.css"
+import {
+  StepBackwardOutlined,
+  CaretRightFilled,
+  StepForwardOutlined,
+  SoundOutlined,
+} from "@ant-design/icons"
 
 function Reproductor() {
   return (
@@ -16,9 +22,9 @@ function Reproductor() {
       <div className="controles">
 
         <div className="botones">
-          <button>⏮</button>
-          <button className="play">▶</button>
-          <button>⏭</button>
+          <button><StepBackwardOutlined /></button>
+          <button className="play"><CaretRightFilled /></button>
+          <button><StepForwardOutlined /></button>
         </div>
 
         <div className="barra-progreso">
@@ -32,7 +38,7 @@ function Reproductor() {
       </div>
 
       <div className="volumen">
-        🔊
+        <SoundOutlined />
         <div className="barra-volumen"></div>
       </div>
 
