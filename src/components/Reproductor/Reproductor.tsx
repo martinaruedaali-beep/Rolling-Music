@@ -43,6 +43,19 @@ function Reproductor() {
     }
   };
 
+  const siguiente = () => {
+    if ( cancionActual < canciones.length -1 ){
+      setCancionActual(cancionActual + 1 );
+      setReproduciendo (false);
+    }
+  }
+  
+  const retroceder = () => {
+    if (cancionActual > 0 ) {
+      setCancionActual(cancionActual - 1);
+      setReproduciendo(false);
+    }
+  }
   return (
     <>
       <div className="reproductor">
@@ -61,13 +74,13 @@ function Reproductor() {
 
         <div className="controles">
           <div className="botones">
-            <button>
+            <button onClick={retroceder}>
               <StepBackwardOutlined />
             </button>
             <button className="play" onClick={reproducirPausar}>
               {reproduciendo ? <PauseOutlined /> : <CaretRightFilled />}
             </button>
-            <button>
+            <button onClick={siguiente}>
               <StepForwardOutlined />
             </button>
           </div>
