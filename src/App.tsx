@@ -1,6 +1,6 @@
 
 import './App.css'
-import Reproductor from './components/Reproductor'
+import Reproductor from './components/Reproductor/Reproductor'
 
 function App() {
 
