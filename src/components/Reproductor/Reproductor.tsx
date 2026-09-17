@@ -15,11 +15,13 @@ function Reproductor() {
       artista: "Patricio Rey y Sus redonditos de Ricota",
       audio:
         "/mp3/Patricio Rey y Sus Redonditos de Ricota - Música para Pastillas.mp3",
+      portada:"/Portadas/Patricio Rey y Sus Redonditos de Ricota - Música para Pastillas.jpg",
     },
     {
       nombre: "In Bloom",
       artista: "Nirvana",
       audio: "/mp3/Nirvana-In Bloom.mp3",
+      portada:"/Portadas/In Bloom - Nirvana.jpg",
     },
   ];
 
@@ -46,7 +48,11 @@ function Reproductor() {
       <div className="reproductor">
         <audio ref={audio} src={canciones[cancionActual].audio} />
         <div className="info-cancion">
-          <div className="portada"></div>
+          <img
+          src={canciones[cancionActual].portada}
+          alt={`Portada de ${canciones[cancionActual].nombre}`}
+          className="portada"
+        />
           <div>
            <h4>{canciones[cancionActual].nombre}</h4>
            <p>{canciones[cancionActual].artista}</p>
