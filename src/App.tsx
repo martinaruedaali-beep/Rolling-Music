@@ -1,8 +1,14 @@
-import Sidebar from './components/Sidebar'
+import Sidebar from './components/Sidebar/Sidebar'
 import './App.css'
 
 function App() {
-  return <Sidebar />
+  return 
+  <>
+  <Sidebar />
+
+  
+  </>
+  
 }
 
 export default App
