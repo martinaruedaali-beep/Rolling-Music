@@ -1,12 +1,35 @@
+import { useRef, useState } from "react";
 import "./Reproductor.css"
 import {
   StepBackwardOutlined,
   CaretRightFilled,
   StepForwardOutlined,
   SoundOutlined,
-} from "@ant-design/icons"
+} from "@ant-design/icons";
 
 function Reproductor() {
+
+  const canciones = [
+    {
+      nombre: "Musica Para Pastillas",
+      artista: "Patricio Rey y Sus redonditos de Ricota",
+      audio:"/aseets/mp3/Patricio Rey y Sus Redonditos de Ricota - Música para Pastillas.mp3" ,
+    },
+    {
+      nombre: "In Bloom",
+      artista: "Nirvana",
+      audio: "/aseets/mp3/Nirvana-In Bloom.mp3",
+    },
+
+  ];
+
+  const [cancionActual, setCancionActual]= useState(0)
+
+  const[reproduciendo, setReproduciendo]= useState(false)
+
+  const audio = useRef<HTMLAudioElement>(null);
+
+  
   return (
     <div className="reproductor">
 
