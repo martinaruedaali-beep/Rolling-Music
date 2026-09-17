@@ -38,7 +38,7 @@
   left: 0;
   bottom: 0;
   width: 200px;
-  height: 90vh;
+  height: 87vh;
   display: flex;
   flex-direction: column;
   padding: 20px 14px;
@@ -136,6 +136,7 @@
   }
 
   .sidebar {
+    height: 84vh;
     left: -220px;
     transition: left 0.3s ease;
   }
