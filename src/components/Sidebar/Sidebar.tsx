@@ -1,5 +1,5 @@
 import { Home, Library, Heart, Users, Music, Crown, Menu } from 'lucide-react'
-import logo from '../assets/icon rolling rock.png'
+import logo from "../../assets/icon rolling rock.png"
 import './Sidebar.css'
 import { useState } from 'react'
 
