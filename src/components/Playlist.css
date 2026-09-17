@@ -1,0 +1,301 @@
+:root {
+
+* =========================
+COLORES PRINCIPALES
+========================= *
+
+
+
+--primary: #E50914;        /* Rojo principal */
+--primary-dark: #A80008;   /* Rojo oscuro */
+--primary-light: #FF1A24;  /* Rojo para hover */
+--background: #050505;     /* Fondo general */
+--surface: #0D0D0D;        /* Tarjetas y navbar */
+--surface-light: #151515;  /* Elementos secundarios */
+--text: #FFFFFF;           /* Texto principal */
+--text-muted: #A6A6A6;     /* Texto secundario */
+--text-dark: #666666;      /* Texto menos importante */
+--border: #292929;         /* Bordes */
+--border-red: #5C1014;     /* Bordes con rojo */
+--success: #20C76A;        /* Disponible / correcto */
+--danger: #E50914;         /* Error / eliminar */
+/* =========================
+   TIPOGRAFÍAS
+   ========================= */
+--font-title: "Bebas Neue", sans-serif;
+--font-heading: "Oswald", sans-serif;
+--font-text: "Inter", sans-serif;
+/* =========================
+   SOMBRAS / EFECTOS
+   ========================= */
+--shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+--shadow-red:
+    0 0 10px rgba(229, 9, 20, 0.35);
+--glow-red:
+    0 0 15px rgba(229, 9, 20, 0.5);
+/* =========================
+   BORDES
+   ========================= */
+--radius-sm: 5px;
+--radius-md: 10px;
+--radius-lg: 16px;
+}
+
+
+
+.playlist-screen {
+  padding: 32px 40px;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+  font-family: var(--font-text);
+}
+
+.playlist-title {
+  font-family: var(--font-title);
+  font-size: 42px;
+  letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+
+.playlist-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.playlist-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 15px;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.playlist-tab:hover {
+  color: var(--text);
+}
+
+.playlist-tab.active {
+  color: var(--primary-light);
+  border-bottom-color: var(--primary);
+}
+
+
+.playlist-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.playlist-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.playlist-table thead {
+  background: var(--surface-light);
+}
+
+.playlist-table th {
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.playlist-table td {
+  padding: 14px 20px;
+  font-size: 14px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.playlist-table tbody tr:hover {
+  background: var(--surface-light);
+}
+
+.playlist-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.col-dur {
+  text-align: right;
+  color: var(--text-muted);
+  width: 100px;
+}
+
+
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.playlist-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.playlist-card:hover {
+  border-color: var(--border-red);
+  box-shadow: var(--shadow-red);
+  transform: translateY(-2px);
+}
+
+.playlist-name {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.playlist-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.empty-state {
+  color: var(--text-dark);
+  font-size: 14px;
+  padding: 40px 0;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+/* Botón crear */
+.create-btn {
+  margin-top: 28px;
+  background: var(--primary);
+  color: var(--text);
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.create-btn:hover {
+  background: var(--primary-light);
+  box-shadow: var(--glow-red);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border-red);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--shadow);
+}
+
+.modal h2 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.modal input[type="text"] {
+  width: 100%;
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 14px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.modal input[type="text"]:focus {
+  border-color: var(--primary);
+}
+
+.field-error {
+  min-height: 18px;
+  font-size: 12px;
+  color: var(--danger);
+  margin-top: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+}
+
+.modal-actions button[type="button"] {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.modal-actions button[type="button"]:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.modal-actions button[type="submit"] {
+  background: var(--primary);
+  color: var(--text);
+}
+
+.modal-actions button[type="submit"]:hover {
+  background: var(--primary-light);
+  box-shadow: var(--glow-red);
+}
