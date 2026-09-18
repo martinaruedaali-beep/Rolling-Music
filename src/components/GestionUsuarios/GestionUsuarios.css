@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --primary: #e50914;
+  --primary-dark: #a80008;
+  --primary-light: #ff1a24;
+
+  --background: #050505;
+  --surface: #0d0d0d;
+  --surface-light: #151515;
+
+  --text: #ffffff;
+  --text-muted: #a6a6a6;
+  --text-dark: #666666;
+
+  --border: #292929;
+  --border-red: #5c1014;
+
+  --success: #20c76a;
+  --danger: #e50914;
+
+  --font-title: "Bebas Neue", sans-serif;
+  --font-heading: "Oswald", sans-serif;
+  --font-text: "Inter", sans-serif;
+
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-red: 0 0 10px rgba(229, 9, 20, 0.35);
+  --glow-red: 0 0 15px rgba(229, 9, 20, 0.5);
+
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+.ComponenteGestionDeUsuarios {
+  padding: 30px;
+  width: 80%;
+  color: var(--text);
+}
+
+.TituloUsuarios {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 10px;
+}
+.TabladeUsuarios {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--surface-light);
+  border-radius: 10px;
+  border: 2px solid var(--text-muted);
+  overflow: hidden;
+}
+.EncabezadosTabla th {
+  background-color: var(--surface);
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--text-muted);
+}
+
+.TabladeUsuarios td {
+  padding: 12px 16px;
+  color: var(--text-muted);
+  font-size: 15px;
+  border-top: 1px solid var(--text-muted);
+}
+
+
+.eliminarUsuario {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.eliminarUsuario:hover {
+  background-color: var(--primary);
+  color: var(--text);
+}

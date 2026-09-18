@@ -3,6 +3,7 @@ import { type Usuario } from "../../types/usuario";
 import { useState } from "react";
 import { DeleteOutlined} from "@ant-design/icons";
 import{ Modal } from "antd";
+import "../GestionUsuarios/GestionUsuarios.css"
 
 const datosIniciales: Usuario[] = [
   {
@@ -52,9 +53,9 @@ const GestionUsuarios: React.FC = () => {
     <>
       <section className="ComponenteGestionDeUsuarios">
         <h2 className="TituloUsuarios">Usuarios Registrados</h2>
-        <table>
+        <table className="TabladeUsuarios">
           <thead>
-            <tr>
+            <tr className="EncabezadosTabla">
               <th>ID</th>
               <th>Nombre</th>
               <th>Email</th>
@@ -72,7 +73,7 @@ const GestionUsuarios: React.FC = () => {
                     <td>
                         <button 
                         type="button"
-                        className="eliminar"
+                        className="eliminarUsuario"
                         onClick={() => eliminarUsuario(usuario.id)}>
                         <DeleteOutlined />
                         </button>
