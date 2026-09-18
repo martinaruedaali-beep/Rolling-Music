@@ -1,0 +1,267 @@
+.error404-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-text);
+  display: flex;
+  flex-direction: column;
+}
+
+.error404-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.error404-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 80% center;
+}
+
+.error404-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.92) 0%, rgba(5, 5, 5, 0.6) 40%, rgba(5, 5, 5, 0.1) 65%, transparent 100%),
+    radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.65) 100%);
+  pointer-events: none;
+}
+
+.error404-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.error404-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 24px;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.error404-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.02em;
+  line-height: 0.8;
+  max-width: 100%;
+}
+
+.error404-number {
+  font-family: var(--font-title);
+  font-size: clamp(90px, 22vw, 260px);
+  color: var(--text);
+  letter-spacing: -0.01em;
+  text-shadow: var(--glow-red), 3px 3px 0 rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.35);
+}
+
+.error404-zero {
+  color: var(--primary);
+  text-shadow: var(--glow-red), 3px 3px 0 rgba(0, 0, 0, 0.6);
+}
+
+.error404-eq {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  height: 34px;
+  margin: 18px 0 22px;
+}
+
+.error404-eq-bar {
+  display: inline-block;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(to top, var(--primary), var(--primary-light));
+  transform: scaleY(0.25);
+  transform-origin: bottom;
+  animation: rr-eq-bounce ease-in-out infinite;
+}
+@keyframes rr-eq-bounce {
+  0%, 100% {
+    transform: scaleY(0.2);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error404-eq-bar {
+    animation: none;
+    transform: scaleY(0.6);
+  }
+}
+
+.error404-subtitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(20px, 3.2vw, 36px);
+  color: var(--primary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.error404-description {
+  margin: 0 0 30px;
+  font-size: clamp(13px, 2vw, 16px);
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 480px;
+}
+
+.error404-description .muted {
+  color: var(--text-muted);
+}
+
+.error404-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.error404-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--primary);
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-red);
+  transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+  max-width: 280px;
+}
+
+.error404-btn-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.error404-btn-primary:hover {
+  background: var(--primary-light);
+  box-shadow: var(--glow-red);
+  transform: translateY(-1px);
+}
+
+.error404-link-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  text-align: center;
+}
+
+.error404-link-secondary svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+.error404-link-secondary .underline-text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.error404-link-secondary:hover {
+  color: var(--text);
+}
+
+.error404-footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 18px 16px;
+  font-size: 12px;
+  color: var(--text-dark);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .error404-bg-img {
+    object-position: 75% center;
+  }
+
+  .error404-content {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .error404-bg-img {
+    opacity: 0.5;
+    object-position: 65% center;
+  }
+
+  .error404-vignette {
+    background:
+      linear-gradient(180deg, rgba(5, 5, 5, 0.7) 0%, rgba(5, 5, 5, 0.85) 60%, rgba(5, 5, 5, 0.95) 100%);
+  }
+
+  .error404-eq {
+    height: 26px;
+    gap: 3px;
+  }
+
+  .error404-eq-bar {
+    width: 3px;
+  }
+}
+
+@media (max-width: 380px) {
+  .error404-number {
+    font-size: clamp(70px, 24vw, 100px);
+  }
+
+  .error404-content {
+    padding: 20px 14px;
+    gap: 2px;
+  }
+
+  .error404-subtitle {
+    margin-bottom: 10px;
+  }
+
+  .error404-description {
+    margin-bottom: 22px;
+  }
+
+  .error404-btn-primary,
+  .error404-link-secondary {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .error404-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
