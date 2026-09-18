@@ -14,7 +14,10 @@ export function obtenerUsuarios(): Usuario[] {
 }
 
 export function guardarUsuarios(usuarios: Usuario[]) {
-  localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(usuarios))
+  localStorage.setItem(
+    CLAVE_USUARIOS,
+    JSON.stringify(usuarios)
+  )
 }
 
 export function crearUsuario(
@@ -31,8 +34,9 @@ export function crearUsuario(
     nombre,
     apellido,
     email,
-    password
-  }
+    password,
+    rol:'Usuario' 
+   }
 
   usuarios.push(nuevoUsuario)
 
