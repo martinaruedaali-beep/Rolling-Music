@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import Error404 from './pages/error404'
+import Error404 from './pages/error404/error404'
 
 function App() {
   return (
