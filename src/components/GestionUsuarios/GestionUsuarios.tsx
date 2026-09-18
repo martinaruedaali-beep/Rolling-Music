@@ -1,9 +1,52 @@
-import type React from "react";
+import React from "react";
 import { type Usuario } from "../../types/usuario";
 import { useState } from "react";
+import { DeleteOutlined} from "@ant-design/icons";
+import{ Modal } from "antd";
+
+const datosIniciales: Usuario[] = [
+  {
+    id: 1,
+    nombre: "Juan",
+    apellido: "Pérez",
+    email: "juan@mail.com",
+    password: "contraseña123",
+    rol: "Usuario",
+  },
+  {
+    id: 2,
+    nombre: "María",
+    apellido: "Gómez",
+    email: "maria@mail.com",
+    password: "contraseña456",
+    rol: "Usuario",
+  },
+  {
+    id: 3,
+    nombre: "Admin",
+    apellido: "Rock",
+    email: "admin@rock.com",
+    password: "admincontraseña",
+    rol: "Admin",
+  },
+];
 
 const GestionUsuarios: React.FC = () => {
-  const [usuario, setUsuarios] = useState<Usuario[]>([]);
+
+  const [usuario, setUsuario] = useState<Usuario[]>(datosIniciales);
+  const eliminarUsuario = (id:number): void => {
+    Modal.confirm({
+    title: '¿Seguro que deseas eliminar este usuario?',
+    content: 'Esta acción no se podrá deshacer.',
+    okText: 'Sí, eliminar',
+    okType: 'danger',
+    cancelText: 'Cancelar',
+    onOk() {
+      setUsuario((prev) => prev.filter((user) => user.id !== id));
+    },
+  });
+
+  }
 
   return (
     <>
@@ -20,7 +63,24 @@ const GestionUsuarios: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            
+            {usuario.map((usuario)=> (
+                <tr key={usuario.id}>
+                    <td>{usuario.id}</td>
+                    <td>{`${usuario.nombre} ${usuario.apellido}`}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.rol ?? 'Usuario'}</td>
+                    <td>
+                        <button 
+                        type="button"
+                        className="eliminar"
+                        onClick={() => eliminarUsuario(usuario.id)}>
+                        <DeleteOutlined />
+                        </button>
+                    </td>
+                </tr>
+            ))}
+
+
           </tbody>
         </table>
       </section>
