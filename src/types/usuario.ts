@@ -4,5 +4,5 @@ export type Usuario = {
   apellido: string
   email: string
   password: string
-  rol?:'Admin | Usuario'
+  rol?:'Admin' | 'Usuario'
 }
