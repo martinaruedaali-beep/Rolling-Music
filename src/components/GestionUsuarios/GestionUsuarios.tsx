@@ -2,7 +2,7 @@ import React from "react";
 import { type Usuario } from "../../types/usuario";
 import { useState } from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
+import { Modal, Input, Select, Form } from "antd";
 import {
   obtenerUsuarios,
   guardarUsuarios,
@@ -35,12 +35,12 @@ const GestionUsuarios: React.FC = () => {
       nombre,
       apellido,
       email,
-      rol: rol as "Admin" | "Usuario" ,
+      rol: rol as "Admin" | "Usuario",
     };
 
     actualizarUsuarios(usuarioActualizado);
     const listaActualizada = usuarios.map((u) =>
-      u.id === usuarioEditando.id ? usuarioActualizado : u
+      u.id === usuarioEditando.id ? usuarioActualizado : u,
     );
 
     setUsuarios(listaActualizada);
@@ -107,36 +107,52 @@ const GestionUsuarios: React.FC = () => {
           </tbody>
         </table>
         <Modal
-          title="editar usuario"
+          title="Editar Usuario"
           open={usuarioEditando !== null}
           onOk={guardarCambios}
           onCancel={() => setUsuarioEditando(null)}
           okText="Guardar cambios"
           cancelText="Cancelar"
         >
-          <input
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            placeholder="Nombre"
-          />
+          <Form layout="vertical">
+            <Form.Item label="Nombre">
+              <Input
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Ej. Juan"
+              />
+            </Form.Item>
 
-          <input
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            placeholder="Apellido"
-          />
+            <Form.Item label="Apellido">
+              <Input
+                type="text"
+                value={apellido}
+                onChange={(e) => setApellido(e.target.value)}
+                placeholder="Ej. Pérez"
+              />
+            </Form.Item>
 
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
+            <Form.Item label="Correo electrónico">
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="correo@ejemplo.com"
+              />
+            </Form.Item>
 
-          <input
-            value={rol}
-            onChange={(e) => setRol(e.target.value)}
-            placeholder="Rol"
-          />
+            <Form.Item label="Rol de usuario">
+              <Select
+                value={rol}
+                onChange={(value) => setRol(value)}
+                options={[
+                  { value: "Admin", label: "Admin" },
+                  { value: "Usuario", label: "Usuario" },
+                ]}
+              />
+            </Form.Item>
+          </Form>
         </Modal>
       </section>
     </>
