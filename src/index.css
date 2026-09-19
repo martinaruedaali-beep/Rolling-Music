@@ -11,6 +11,9 @@
   --radius-lg: 16px;
 }
 
+html {
+    font-size: 14px; 
+}
 body {
   margin: 0;
   background-color: #0b0203;
@@ -24,25 +27,25 @@ body {
    ========================================================== */
 .detalle-album-wrapper {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
 .album-header-clean {
   display: flex;
-  gap: 30px;
+  gap: 20px; /* Reducido de 30px */
   align-items: center;
   background: linear-gradient(135deg, rgba(229, 9, 20, 0.15) 0%, rgba(18, 4, 6, 0.95) 70%);
-  padding: 30px;
+  padding: 20px; /* Reducido de 30px */
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-red);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* Sombra más sutil */
   margin-bottom: 25px;
 }
 
 .album-cover-box {
-  width: 220px;
-  height: 220px;
+  width: 170px; /* Reducido de 220px */
+  height: 170px; /* Reducido de 220px */
   background-size: cover;
   background-position: center;
   border-radius: var(--radius-md);
@@ -51,12 +54,11 @@ body {
 }
 
 .album-title-clean {
-  font-size: 2.2rem;
+  font-size: 1.8rem; /* Reducido de 2.2rem */
   font-weight: 800;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   color: var(--text);
 }
-
 .album-meta-clean {
   display: flex;
   gap: 10px;
@@ -96,13 +98,12 @@ body {
   background: rgba(18, 18, 18, 0.85);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border);
-  padding: 15px 24px;
+  padding: 12px 20px; /* Reducido de 15px 24px */
   border-radius: var(--radius-lg);
-  margin: 20px 0;
-  max-width: 800px;
+  margin: 15px 0; /* Reducido de 20px */
+  max-width: 100%; /* Adaptable al ancho del nuevo wrapper */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
-
 .reproductor-controles-grupo {
   display: flex;
   align-items: center;
@@ -601,19 +602,19 @@ table {
 th {
   background: rgba(255, 255, 255, 0.03);
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.75rem; /* Ligeramente más pequeño */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 14px 16px;
+  padding: 10px 14px; /* Reducido para compactar encabezado */
   text-align: left;
   border-bottom: 1px solid var(--border);
 }
 
 td {
-  padding: 12px 16px;
+  padding: 10px 14px; /* Reducido de 12px 16px */
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* Ajustado para mejor lectura */
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   vertical-align: middle;
 }
@@ -967,3 +968,45 @@ tr:hover td {
   gap: 16px;
   width: 100%;
 }
+/* Nuevas clases extraídas del TSX */
+.modal-drag-icon {
+  margin-right: 5px;
+}
+
+.modal-resultado-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.modal-resultado-info {
+  flex: 1;
+}
+
+.modal-resultado-icono-musica {
+  color: var(--primary);
+  margin-right: 6px;
+}
+
+.playlist-acciones-btn {
+  background: var(--surface-light);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+/* Clases de limpieza rápida para DetalleAlbum */
+.progress-container-clean { margin: 0; border: none; background: transparent; padding: 0; }
+.album-actions-spacing { margin-top: 15px; position: relative; }
+.section-title-flex { display: flex; align-items: center; gap: 8px; }
+.section-title-icon { color: var(--primary); }
+.carpeta-eliminar-btn-clean { background: transparent; border: none; color: #ff4d4d; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
+.carpeta-btn-chico { width: 26px; height: 26px; }
+.carpeta-vacia-texto-clean { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+.explorar-titulo-margen { margin-bottom: 15px; }
+.explorar-info-espaciado { margin: 15px 0; font-size: 0.85rem; }
+.login-titulo-centrado { text-align: center; }
+.login-credenciales-caja { font-size: 0.8rem; background: var(--surface); padding: 10px; border-radius: 4px; color: var(--text-muted); }
+.login-password-wrapper { position: relative; display: flex; align-items: center; }
+.login-input-password-ext { width: 100%; margin-bottom: 15px; }
+.login-eye-btn { position: absolute; right: 10px; top: 15px; background: none; border: none; color: var(--text-muted); cursor: pointer; }
+.login-password-wrapper { position: relative; display: flex; align-items: center; }

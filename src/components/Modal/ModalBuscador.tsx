@@ -109,86 +109,82 @@ export const ModalBuscador: React.FC<ModalBuscadorProps> = ({
 
   if (!abierto) return null;
 
-  return (
-    <div className="modal-overlay-custom">
-      <div 
-        ref={modalRef}
-        className="modal-content-custom"
-        style={{ transform: `translate(${posicion.x}px, ${posicion.y}px)` }}
-      >
-        <div className="modal-drag-header" onMouseDown={iniciarArrastre} title="Haz clic y arrastra para mover">
-          <span><FaArrowsAlt style={{ marginRight: '5px' }} /> Arrastrar ventana</span>
-          <span>(Móvil / Libre)</span>
-        </div>
+ return (
+  <div className="modal-overlay-custom">
+    <div 
+      ref={modalRef}
+      className="modal-content-custom"
+      style={{ transform: `translate(${posicion.x}px, ${posicion.y}px)` }}
+    >
+      <div className="modal-drag-header" onMouseDown={iniciarArrastre} title="Haz clic y arrastra para mover">
+        <span><FaArrowsAlt className="modal-drag-icon" /> Arrastrar ventana</span>
+        <span>(Móvil / Libre)</span>
+      </div>
 
-        <h3 className="modal-titulo-limpio">
-          Buscar y Guardar Canciones
-        </h3>
-        
-        <p className="modal-texto-limpio">
-          {usuarioLogueado 
-            ? "Busca temas y reprodúcelos o agrégalos directamente a tu playlist personal." 
-            : "Inicia sesión para poder guardar canciones en tu playlist personal."}
-        </p>
-        
-        <input 
-          type="text" 
-          placeholder="Ej: Soda Stereo, La Renga..." 
-          className="modal-input-limpio"
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          autoFocus
-        />
+      <h3 className="modal-titulo-limpio">
+        Buscar y Guardar Canciones
+      </h3>
+      
+      <p className="modal-texto-limpio">
+        {usuarioLogueado 
+          ? "Busca temas y reprodúcelos o agrégalos directamente a tu playlist personal." 
+          : "Inicia sesión para poder guardar canciones en tu playlist personal."}
+      </p>
+      
+      <input 
+        type="text" 
+        placeholder="Ej: Soda Stereo, La Renga..." 
+        className="modal-input-limpio"
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+        autoFocus
+      />
 
-        {buscadoRealizado && (
-          <div className="modal-resultados-box">
-            {resultados.length > 0 ? (
-              resultados.map(song => (
+      {buscadoRealizado && (
+        <div className="modal-resultados-box">
+          {resultados.length > 0 ? (
+            resultados.map(song => (
+              <div key={song.id} className="modal-resultado-item">
+                
                 <div 
-                  key={song.id} 
-                  className="modal-resultado-item"
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                  className="modal-resultado-info"
+                  onClick={() => {
+                    alSeleccionarCancion(song);
+                    handleCerrar();
+                  }}
+                  title="Haz clic para reproducir"
                 >
-                  <div 
-                    style={{ flex: 1 }}
-                    onClick={() => {
-                      alSeleccionarCancion(song);
-                      handleCerrar();
-                    }}
-                    title="Haz clic para reproducir"
-                  >
-                    <FaMusic style={{ color: 'var(--primary)', marginRight: '6px' }} />
-                    <strong>{song.titulo}</strong> - <span className="modal-resultado-artista">{song.artista}</span>
-                  </div>
-
-                  {usuarioLogueado && (
-                    <button 
-                      className="playlist-acciones-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        alAgregarAPlaylist(song);
-                      }}
-                      title="Agregar a mi Playlist personal"
-                      style={{ background: 'var(--surface-light)', padding: '4px 8px', borderRadius: '4px' }}
-                    >
-                      <FaPlus /> Playlist
-                    </button>
-                  )}
+                  <FaMusic className="modal-resultado-icono-musica" />
+                  <strong>{song.titulo}</strong> - <span className="modal-resultado-artista">{song.artista}</span>
                 </div>
-              ))
-            ) : (
-              <p className="modal-no-encontrado">
-                ❌ Canción o artista no encontrado.
-              </p>
-            )}
-          </div>
-        )}
 
-        <div className="modal-acciones-limpio">
-          <Boton variante="primario" onClick={handleBuscar}>Buscar</Boton>
-          <Boton variante="contorno" onClick={handleCerrar}>Cerrar</Boton>
+                {usuarioLogueado && (
+                  <button 
+                    className="playlist-acciones-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      alAgregarAPlaylist(song);
+                    }}
+                    title="Agregar a mi Playlist personal"
+                  >
+                    <FaPlus /> Playlist
+                  </button>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="modal-no-encontrado">
+              ❌ Canción o artista no encontrado.
+            </p>
+          )}
         </div>
+      )}
+
+      <div className="modal-acciones-limpio">
+        <Boton variante="primario" onClick={handleBuscar}>Buscar</Boton>
+        <Boton variante="contorno" onClick={handleCerrar}>Cerrar</Boton>
       </div>
     </div>
-  );
+  </div>
+);
 };

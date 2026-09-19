@@ -7,7 +7,7 @@ import { FiltrosGenero } from '../../../components/Filtros/FiltrosGenero';
 import { catalogoAlbums } from '../../../data/mockData';
 import type { Cancion } from '../../../tipos/cancion';
 import type { Album } from '../../../tipos/Album';
-import { FaPlay, FaPause, FaHeart, FaPlus, FaUserCircle, FaStepBackward, FaStepForward, FaVolumeUp, FaVolumeMute, FaCompass, FaSignOutAlt, FaSignInAlt, FaTrash, FaLock, FaFolderOpen, FaFolderPlus, FaCheck } from 'react-icons/fa';
+import { FaPlay, FaPause, FaHeart, FaPlus, FaUserCircle, FaStepBackward, FaStepForward, FaVolumeUp, FaVolumeMute, FaCompass, FaSignOutAlt, FaSignInAlt, FaTrash, FaLock, FaFolderOpen, FaFolderPlus, FaCheck, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface CancionConAlbum extends Cancion {
   albumPadre: Album;
@@ -47,10 +47,11 @@ export const DetalleAlbum = () => {
   const [generoActivo, setGeneroActivo] = useState<string>('Todo');
   const [mostrarMenuLogout, setMostrarMenuLogout] = useState(false);
 
-  const [usuarioActual, setUsuarioActual] = useState<UsuarioRegistrado | null>(USUARIOS_VALIDOS[0]);
+  const [usuarioActual, setUsuarioActual] = useState<UsuarioRegistrado | null>(null);
   const [mostrarLoginModal, setMostrarLoginModal] = useState(false);
   const [emailInput, setEmailInput] = useState('');
   const [passInput, setPassInput] = useState('');
+  const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [errorLogin, setErrorLogin] = useState('');
 
   const [tiempoActual, setTiempoActual] = useState(0);
@@ -61,12 +62,7 @@ export const DetalleAlbum = () => {
   const [nombreNuevaCarpeta, setNombreNuevaCarpeta] = useState('');
   const [mostrarSelectorCarpetas, setMostrarSelectorCarpetas] = useState(false);
 
-  const [carpetasUsuario, setCarpetasUsuario] = useState<CarpetaPersonalizada[]>(() => {
-    const guardadas = localStorage.getItem(`carpetas_${USUARIOS_VALIDOS[0].email}`);
-    return guardadas ? JSON.parse(guardadas) : [
-      { id: '1', nombre: 'Mis Favoritos', canciones: [] }
-    ];
-  });
+  const [carpetasUsuario, setCarpetasUsuario] = useState<CarpetaPersonalizada[]>([]);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -89,7 +85,25 @@ export const DetalleAlbum = () => {
     };
   }, [albumActual, indiceCancionActual]);
 
+  useEffect(() => {
+    const manejarTecladoLogin = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mostrarLoginModal) {
+        setMostrarLoginModal(false);
+        setErrorLogin('');
+      }
+    };
+
+    window.addEventListener('keydown', manejarTecladoLogin);
+    return () => window.removeEventListener('keydown', manejarTecladoLogin);
+  }, [mostrarLoginModal]);
+
   const manejarReproduccion = (cancion: Cancion, index?: number) => {
+    if (!usuarioActual) {
+      alert("⚠️ Debe iniciar sesión para reproducir música.");
+      setMostrarLoginModal(true);
+      return;
+    }
+
     if (index !== undefined) setIndiceCancionActual(index);
 
     if (audioRef.current) {
@@ -111,6 +125,11 @@ export const DetalleAlbum = () => {
   };
 
   const manejarPausa = () => {
+    if (!usuarioActual) {
+      setMostrarLoginModal(true);
+      return;
+    }
+
     if (audioRef.current) {
       if (estaReproduciendo) {
         audioRef.current.pause();
@@ -123,6 +142,7 @@ export const DetalleAlbum = () => {
   };
 
   const cambiarProgreso = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!usuarioActual) return;
     const nuevoTiempo = Number(e.target.value);
     setTiempoActual(nuevoTiempo);
     if (audioRef.current) {
@@ -151,11 +171,19 @@ export const DetalleAlbum = () => {
   };
 
   const siguienteCancion = () => {
+    if (!usuarioActual) {
+      setMostrarLoginModal(true);
+      return;
+    }
     const nuevoIndice = (indiceCancionActual + 1) % albumActual.songs.length;
     manejarReproduccion(albumActual.songs[nuevoIndice], nuevoIndice);
   };
 
   const anteriorCancion = () => {
+    if (!usuarioActual) {
+      setMostrarLoginModal(true);
+      return;
+    }
     const nuevoIndice = indiceCancionActual === 0 ? albumActual.songs.length - 1 : indiceCancionActual - 1;
     manejarReproduccion(albumActual.songs[nuevoIndice], nuevoIndice);
   };
@@ -183,13 +211,16 @@ export const DetalleAlbum = () => {
     setAlertaVisible(true);
   };
 
-  const agregarACarpetaSeleccionada = (idCarpeta: string) => {
+  const agregarACarpetaSeleccionada = (idCarpeta: string, cancionSeleccionada: Cancion = cancionActual) => {
     if (!usuarioActual) return;
 
     const actualizadas = carpetasUsuario.map(carpeta => {
       if (carpeta.id === idCarpeta) {
-        if (!carpeta.canciones.some(s => s.id === cancionActual.id)) {
-          return { ...carpeta, canciones: [...carpeta.canciones, cancionActual] };
+        if (!carpeta.canciones.some(s => s.id === cancionSeleccionada.id)) {
+          return { ...carpeta, canciones: [...carpeta.canciones, cancionSeleccionada] };
+        } else {
+          setTextoAlerta(`La canción ya está en "${carpeta.nombre}"`);
+          return carpeta;
         }
       }
       return carpeta;
@@ -197,7 +228,10 @@ export const DetalleAlbum = () => {
 
     setCarpetasUsuario(actualizadas);
     localStorage.setItem(`carpetas_${usuarioActual.email}`, JSON.stringify(actualizadas));
-    setTextoAlerta(`¡Canción agregada a la carpeta!`);
+    
+    if (!carpetasUsuario.find(c => c.id === idCarpeta)?.canciones.some(s => s.id === cancionSeleccionada.id)) {
+      setTextoAlerta(`¡Canción agregada a la carpeta!`);
+    }
     setAlertaVisible(true);
     setMostrarSelectorCarpetas(false);
   };
@@ -266,6 +300,11 @@ export const DetalleAlbum = () => {
   };
 
   const seleccionarCancionDelExplorador = (cancionConAlbum: CancionConAlbum) => {
+    if (!usuarioActual) {
+      alert("⚠️ Debe iniciar sesión para reproducir música.");
+      setMostrarLoginModal(true);
+      return;
+    }
     setAlbumActual(cancionConAlbum.albumPadre);
     const index = cancionConAlbum.albumPadre.songs.findIndex(s => s.id === cancionConAlbum.id);
     const indexValido = index !== -1 ? index : 0;
@@ -315,7 +354,7 @@ export const DetalleAlbum = () => {
 
       {!usuarioActual && (
         <div className="guest-banner-warning">
-          <span>🔒 Estás navegando como invitado. Las funciones de crear carpetas y playlists están restringidas.</span>
+          <span>🔒 Estás navegando como invitado. Las funciones de reproducción y playlists están restringidas.</span>
           <Boton variante="primario" onClick={() => setMostrarLoginModal(true)}>
             <FaSignInAlt /> Iniciar Sesión
           </Boton>
@@ -359,10 +398,11 @@ export const DetalleAlbum = () => {
               </button>
             </div>
 
-            <div className="progress-container" style={{ margin: 0, border: 'none', background: 'transparent', padding: 0 }}>
+            <div className="progress-container progress-container-clean">
               <input 
                 type="range" 
                 className="progress-bar-input"
+                disabled={!usuarioActual}
                 min={0}
                 max={duracionTotal || 100}
                 value={tiempoActual}
@@ -393,7 +433,7 @@ export const DetalleAlbum = () => {
             </div>
           </div>
           
-          <div className="album-actions-clean" style={{ marginTop: '15px', position: 'relative' }}>
+          <div className="album-actions-clean album-actions-spacing">
             <Boton variante="contorno" onClick={() => {
               if (!usuarioActual) {
                 alert("⚠️ Debe iniciar sesión para usar el buscador y guardar temas.");
@@ -431,7 +471,7 @@ export const DetalleAlbum = () => {
                     return (
                       <button
                         key={c.id}
-                        onClick={() => agregarACarpetaSeleccionada(c.id)}
+                        onClick={() => agregarACarpetaSeleccionada(c.id, cancionActual)}
                         className={`selector-carpeta-btn ${yaEsta ? 'selector-carpeta-activa' : ''}`}
                       >
                         <span>📁 {c.nombre}</span>
@@ -450,8 +490,8 @@ export const DetalleAlbum = () => {
 
       {usuarioActual && (
         <div className="playlist-usuario-box">
-          <h3 className="section-title-clean" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <FaFolderOpen style={{ color: 'var(--primary)' }} /> MIS CARPETAS ({usuarioActual.nombre.toUpperCase()})
+          <h3 className="section-title-clean section-title-flex">
+            <FaFolderOpen className="section-title-icon" /> MIS CARPETAS ({usuarioActual.nombre.toUpperCase()})
           </h3>
 
           <form onSubmit={crearCarpeta} className="carpeta-form-container">
@@ -476,7 +516,7 @@ export const DetalleAlbum = () => {
                   </h4>
                   <button 
                     onClick={() => eliminarCarpeta(carpeta.id)} 
-                    style={{ background: 'transparent', border: 'none', color: '#ff4d4d', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}
+                    className="carpeta-eliminar-btn-clean"
                     title="Eliminar carpeta"
                   >
                     <FaTrash /> Eliminar
@@ -491,10 +531,10 @@ export const DetalleAlbum = () => {
                           <strong>{song.titulo}</strong> - <span className="playlist-song-artist">{song.artista}</span>
                         </span>
                         <div className="playlist-acciones-grupo">
-                          <button className="playlist-acciones-btn" onClick={() => manejarReproduccion(song)} title="Reproducir" style={{ width: '26px', height: '26px' }}>
+                          <button className="playlist-acciones-btn carpeta-btn-chico" onClick={() => manejarReproduccion(song)} title="Reproducir">
                             <FaPlay className="playlist-action-icon-small" />
                           </button>
-                          <button className="playlist-acciones-btn" onClick={() => eliminarDeCarpeta(carpeta.id, song.id)} title="Quitar" style={{ width: '26px', height: '26px' }}>
+                          <button className="playlist-acciones-btn carpeta-btn-chico" onClick={() => eliminarDeCarpeta(carpeta.id, song.id)} title="Quitar">
                             <FaTrash className="playlist-action-icon-small" />
                           </button>
                         </div>
@@ -505,7 +545,7 @@ export const DetalleAlbum = () => {
               </div>
             ))
           ) : (
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0 }}>
+            <p className="carpeta-vacia-texto-clean">
               No tienes carpetas creadas. Usa el campo de arriba para crear una.
             </p>
           )}
@@ -518,9 +558,9 @@ export const DetalleAlbum = () => {
 
       {menuExplorarAbierto && (
         <div className="explorar-dropdown-panel">
-          <h3 className="section-title-clean" style={{ marginBottom: '15px' }}>Filtro por Género Musical</h3>
+          <h3 className="section-title-clean explorar-titulo-margen">Filtro por Género Musical</h3>
           <FiltrosGenero generos={listaGeneros} generoActivo={generoActivo} alSeleccionar={setGeneroActivo} />
-          <p className="album-info-clean" style={{ margin: '15px 0', fontSize: '0.85rem' }}>
+          <p className="album-info-clean explorar-info-espaciado">
             Mostrando <strong>{cancionesFiltradas.length}</strong> canciones para: <em>{generoActivo}</em>.
           </p>
           <TablaCanciones canciones={cancionesFiltradas} alReproducirCancion={(song) => seleccionarCancionDelExplorador(song as CancionConAlbum)} />
@@ -551,14 +591,14 @@ export const DetalleAlbum = () => {
             />
 
             <div className="login-content-wrapper">
-              <h3 className="modal-titulo-limpio" style={{ textAlign: 'center' }}>
+              <h3 className="modal-titulo-limpio login-titulo-centrado">
                 <FaLock /> Acceso Restringido - Rock Music
               </h3>
-              <p className="modal-texto-limpio" style={{ textAlign: 'center' }}>
+              <p className="modal-texto-limpio login-titulo-centrado">
                 Ingrese con una de las cuentas de prueba autorizadas para gestionar su carpeta y playlist:
               </p>
 
-              <div style={{ fontSize: '0.8rem', background: 'var(--surface)', padding: '10px', borderRadius: '4px', color: 'var(--text-muted)' }}>
+              <div className="login-credenciales-caja">
                 <p><strong>Usuario 1:</strong> Usuario1@rock.com | R1234</p>
                 <p><strong>Usuario 2:</strong> Usuario2@rock.com | R2345</p>
                 <p><strong>Usuario 3:</strong> Usuario3@rock.com | R3456</p>
@@ -568,19 +608,30 @@ export const DetalleAlbum = () => {
                 type="email" 
                 placeholder="Correo electrónico"
                 className="login-input"
+                autoComplete="off"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 required
               />
 
-              <input 
-                type="password" 
-                placeholder="Contraseña"
-                className="login-input"
-                value={passInput}
-                onChange={(e) => setPassInput(e.target.value)}
-                required
-              />
+              <div className="login-password-wrapper">
+                <input 
+                  type={mostrarContrasena ? "text" : "password"} 
+                  placeholder="Contraseña"
+                  className="login-input login-input-password-ext"
+                  value={passInput}
+                  onChange={(e) => setPassInput(e.target.value)}
+                  required
+                />
+                <button 
+                  type="button" 
+                  onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                  className="login-eye-btn"
+                  title={mostrarContrasena ? "Ocultar contraseña" : "Ver contraseña"}
+                >
+                  {mostrarContrasena ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
 
               {errorLogin && <p className="login-error-text">{errorLogin}</p>}
 
@@ -616,9 +667,13 @@ export const DetalleAlbum = () => {
           setIndiceCancionActual(indexValido);
           manejarReproduccion(cancionConAlbum.albumPadre.songs[indexValido], indexValido);
         }}
-        alAgregarAPlaylist={() => {
-          const carpetaDestino = carpetasUsuario.length > 0 ? carpetasUsuario[0].id : undefined;
-          if (carpetaDestino) agregarACarpetaSeleccionada(carpetaDestino);
+        alAgregarAPlaylist={(cancion) => {
+          if (carpetasUsuario.length > 0) {
+            agregarACarpetaSeleccionada(carpetasUsuario[0].id, cancion);
+          } else {
+            setTextoAlerta("⚠️ Crea una carpeta primero en 'MIS CARPETAS' para poder guardar.");
+            setAlertaVisible(true);
+          }
         }}
       />
 
