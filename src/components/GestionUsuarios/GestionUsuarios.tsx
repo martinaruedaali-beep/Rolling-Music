@@ -68,6 +68,7 @@ const GestionUsuarios: React.FC = () => {
     <>
       <section className="ComponenteGestionDeUsuarios">
         <h2 className="TituloUsuarios">Usuarios Registrados</h2>
+        <div className="TablaContenedor">
         <table className="TabladeUsuarios">
           <thead>
             <tr className="EncabezadosTabla">
@@ -81,11 +82,11 @@ const GestionUsuarios: React.FC = () => {
           <tbody>
             {usuarios.map((usuarios) => (
               <tr key={usuarios.id}>
-                <td>{usuarios.id}</td>
-                <td>{`${usuarios.nombre} ${usuarios.apellido}`}</td>
-                <td>{usuarios.email}</td>
-                <td>{usuarios.rol ?? "Usuario"}</td>
-                <td>
+                <td data-label="ID">{usuarios.id}</td>
+                <td data-label="Nombre">{`${usuarios.nombre} ${usuarios.apellido}`}</td>
+                <td data-label="Email">{usuarios.email}</td>
+                <td data-label="Rol">{usuarios.rol ?? "Usuario"}</td>
+                <td data-label="Acciones">
                   <button
                     type="button"
                     className="editarUsuario"
@@ -106,6 +107,7 @@ const GestionUsuarios: React.FC = () => {
             ))}
           </tbody>
         </table>
+        </div>
         <Modal
           title="Editar Usuario"
           open={usuarioEditando !== null}

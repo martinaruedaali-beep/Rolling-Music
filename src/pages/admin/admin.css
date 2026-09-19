@@ -3,3 +3,39 @@
   margin-top: 50px;
   padding-bottom: 90px; 
 }
+
+.tituloAdmin {
+  font-family: var(--font-title);
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .tituloAdmin {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tituloAdmin {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 991px) {
+  .contenedorAdmin{
+    margin-left: 0;
+    margin-top: 70px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedorAdmin{
+    padding-bottom: 175px;
+  }
+}

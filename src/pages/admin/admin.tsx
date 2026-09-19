@@ -8,7 +8,7 @@ const Admin: React.FC = () => {
   return (
     <>
     <main className="contenedorAdmin">
-      <h1>Panel de Administración</h1>
+      <h1 className="tituloAdmin">Panel de Administración</h1>
       <Sidebar/>
       <Reproductor/>
       <GestionUsuarios />
