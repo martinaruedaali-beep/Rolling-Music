@@ -1,6 +1,7 @@
 import Sidebar from "./components/Sidebar";
-import Playlist from "./components/Playlist";
+import Playlist from "./components/Playlist/Playlist";
 import Reproductor from "./components/Reproductor/Reproductor";
+import ArtistPanel from "./components/ArtistPanel/ArtistPanel";
 import "./App.css";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <>
       <Sidebar />
       <Playlist />
+      <ArtistPanel />
       <Reproductor />
     </>
   );
