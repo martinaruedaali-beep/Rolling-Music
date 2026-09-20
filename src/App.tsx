@@ -6,7 +6,8 @@ import Error404 from './pages/error404/error404'
 import './App.css'
 import Admin from './pages/admin/admin'
 import Registro from './components/Registro/Registro'
-import Login from './components/Login/Login'
+import Login from './components/login/login'
+import Header from './components/Header/Header'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         path="/"
         element={
           <>
+            <Header />
             <Sidebar />
             <Playlist />
             <Reproductor />

@@ -2,11 +2,22 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { catalogoAlbums } from "../../data/mockData";
 import type { Cancion } from "../../tipos/cancion";
+import {
+  obtenerSesion,
+  cerrarSesion,
+} from "../../services/sesionservice";
+import type { Usuario } from "../../types/usuario";
 
 function Header() {
   const navigate = useNavigate();
   const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState<Cancion[]>([]);
+  const [usuario, setUsuario] = useState<Usuario | null>(obtenerSesion());
+
+  const manejarLogout = () => {
+    cerrarSesion();
+    setUsuario(null);
+  };
 
   const manejarBusqueda = (e: ChangeEvent<HTMLInputElement>) => {
     const valor = e.target.value;
@@ -64,12 +75,28 @@ function Header() {
         </form>
 
         <div>
-          <button type="button" onClick={() => navigate("/login")}>
-            Iniciar Sesion
-          </button>
-          <button type="button" onClick={() => navigate("/registro")}>
-            Registrarse
-          </button>
+          {usuario ? (
+            <>
+              <span>Bienvenido, {usuario.nombre}</span>
+              {usuario.rol === "Admin" && (
+                <button type="button" onClick={() => navigate("/admin")}>
+                  Admin
+                </button>
+              )}
+              <button type="button" onClick={manejarLogout}>
+                Cerrar sesion
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" onClick={() => navigate("/login")}>
+                Iniciar Sesion
+              </button>
+              <button type="button" onClick={() => navigate("/registro")}>
+                Registrarse
+              </button>
+            </>
+          )}
         </div>
       </header>
     </>
