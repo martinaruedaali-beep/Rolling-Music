@@ -64,6 +64,10 @@ export default function Playlist() {
     setError("");
   }
 
+  function handleDelete(id: string) {
+    setSongs((prev) => prev.filter((song) => song.id !== id));
+  }
+
   return (
     <div className="playlist-screen">
       <h1 className="playlist-title">Mi Playlist</h1>
@@ -92,6 +96,7 @@ export default function Playlist() {
                 <th>Artista</th>
                 <th>Álbum</th>
                 <th className="col-dur">Duración</th>
+                <th className="col-actions"></th>
               </tr>
             </thead>
             <tbody>
@@ -101,6 +106,16 @@ export default function Playlist() {
                   <td>{song.artist}</td>
                   <td>{song.album}</td>
                   <td className="col-dur">{song.duration}</td>
+                  <td className="col-actions">
+                    <button
+                      type="button"
+                      className="delete-btn"
+                      onClick={() => handleDelete(song.id)}
+                      aria-label={`Eliminar ${song.title || "canción"}`}
+                    >
+                      🗑
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
