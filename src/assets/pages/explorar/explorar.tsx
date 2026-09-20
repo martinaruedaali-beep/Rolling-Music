@@ -47,7 +47,7 @@ export const Explorar: React.FC<ExplorarProps> = ({ alSeleccionarAlbum }) => {
         alSeleccionar={setGeneroActivo}
       />
 
-        <p className="album-info-clean" style={{ marginTop: '15px', fontSize: '0.9rem' }}>
+      <p className="album-info-clean explorar-info-resultados">
         Mostrando <strong>{cancionesFiltradas.length}</strong> {cancionesFiltradas.length === 1 ? 'resultado' : 'resultados'} para el género: <em>{generoActivo}</em>
       </p>
 
