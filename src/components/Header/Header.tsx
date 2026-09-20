@@ -1,13 +1,10 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { catalogoAlbums } from "../../data/mockData";
 import type { Cancion } from "../../tipos/cancion";
 
-interface HeaderProps {
-  iniciarSesion: () => void;
-  registrarse: () => void;
-}
-
-function Header({ iniciarSesion, registrarse }: HeaderProps) {
+function Header() {
+  const navigate = useNavigate();
   const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState<Cancion[]>([]);
 
@@ -67,12 +64,12 @@ function Header({ iniciarSesion, registrarse }: HeaderProps) {
         </form>
 
         <div>
-          <a href="#" onClick={iniciarSesion}>
+          <button type="button" onClick={() => navigate("/login")}>
             Iniciar Sesion
-          </a>
-          <a href="#" onClick={registrarse}>
+          </button>
+          <button type="button" onClick={() => navigate("/registro")}>
             Registrarse
-          </a>
+          </button>
         </div>
       </header>
     </>
