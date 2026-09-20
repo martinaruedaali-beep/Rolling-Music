@@ -19,7 +19,6 @@ const listaGeneros = ['Todo', 'Rock', 'Hard Rock', 'Metal', 'Punk'];
 export const Explorar: React.FC<ExplorarProps> = ({ alSeleccionarAlbum }) => {
   const [generoActivo, setGeneroActivo] = useState<string>('Todo');
 
-  // Obtenemos todas las canciones aplanadas del catálogo con su respectivo álbum de referencia
   const cancionesConAlbum: CancionConAlbum[] = catalogoAlbums.flatMap(album => 
     album.songs.map(song => ({ ...song, albumPadre: album }))
   );
