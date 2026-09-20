@@ -7,6 +7,8 @@ import {
   cerrarSesion,
 } from "../../services/sesionservice";
 import type { Usuario } from "../../types/usuario";
+import { SearchOutlined } from "@ant-design/icons";
+import "./Header.css";
 
 function Header() {
   const navigate = useNavigate();
@@ -51,48 +53,50 @@ function Header() {
 
   return (
     <>
-      <header>
-        <form onSubmit={manejarEnvio}>
+      <header className="header">
+        <form onSubmit={manejarEnvio} className="headerBusqueda">
+          <SearchOutlined className="headerBusquedaIcon" />
           <input
             type="search"
             placeholder="Buscar..."
             value={busqueda}
             onChange={manejarBusqueda}
+            className="headerBusquedaInput"
           />
 
           {busqueda.trim() &&
             (resultados.length > 0 ? (
-              <ul>
+              <ul className="headerResultados">
                 {resultados.map((cancion) => (
-                  <li key={cancion.id} onClick={() => setBusqueda("")}>
+                  <li key={cancion.id} onClick={() => setBusqueda("")} className="headerResultado">
                     {cancion.titulo} - {cancion.artista}
                   </li>
                 ))}
               </ul>
             ) : (
-              <p>Sin resultados para "{busqueda}".</p>
+              <p className="headerSinResultados">Sin resultados para "{busqueda}".</p>
             ))}
         </form>
 
-        <div>
+        <div className="headerAcciones">
           {usuario ? (
             <>
-              <span>Bienvenido, {usuario.nombre}</span>
+              <span className="headerBienvenido">Bienvenido, {usuario.nombre}</span>
               {usuario.rol === "Admin" && (
-                <button type="button" onClick={() => navigate("/admin")}>
+                <button type="button" onClick={() => navigate("/admin")} className="headerBoton">
                   Admin
                 </button>
               )}
-              <button type="button" onClick={manejarLogout}>
+              <button type="button" onClick={manejarLogout} className="headerBoton headerBotonSecundario">
                 Cerrar sesion
               </button>
             </>
           ) : (
             <>
-              <button type="button" onClick={() => navigate("/login")}>
+              <button type="button" onClick={() => navigate("/login")} className="headerBoton">
                 Iniciar Sesion
               </button>
-              <button type="button" onClick={() => navigate("/registro")}>
+              <button type="button" onClick={() => navigate("/registro")} className="headerBoton headerBotonSecundario">
                 Registrarse
               </button>
             </>
