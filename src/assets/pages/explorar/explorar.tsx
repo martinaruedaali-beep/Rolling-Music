@@ -19,7 +19,10 @@ const listaGeneros = ['Todo', 'Rock', 'Hard Rock', 'Metal', 'Punk'];
 export const Explorar: React.FC<ExplorarProps> = ({ alSeleccionarAlbum }) => {
   const [generoActivo, setGeneroActivo] = useState<string>('Todo');
 
+<<<<<<< HEAD
   // Obtenemos todas las canciones aplanadas del catálogo con su respectivo álbum de referencia
+=======
+>>>>>>> e4c973d (carpetas ordenadas, con archivos y css en index)
   const cancionesConAlbum: CancionConAlbum[] = catalogoAlbums.flatMap(album => 
     album.songs.map(song => ({ ...song, albumPadre: album }))
   );
@@ -47,7 +50,11 @@ export const Explorar: React.FC<ExplorarProps> = ({ alSeleccionarAlbum }) => {
         alSeleccionar={setGeneroActivo}
       />
 
+<<<<<<< HEAD
         <p className="album-info-clean" style={{ marginTop: '15px', fontSize: '0.9rem' }}>
+=======
+      <p className="album-info-clean explorar-info-resultados">
+>>>>>>> e4c973d (carpetas ordenadas, con archivos y css en index)
         Mostrando <strong>{cancionesFiltradas.length}</strong> {cancionesFiltradas.length === 1 ? 'resultado' : 'resultados'} para el género: <em>{generoActivo}</em>
       </p>
 

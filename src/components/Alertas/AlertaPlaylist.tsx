@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
+=======
+import { FaCheckCircle, FaTimes } from 'react-icons/fa';
+>>>>>>> e4c973d (carpetas ordenadas, con archivos y css en index)
 
 interface AlertaPlaylistProps {
   mostrar: boolean;
   alCerrar: () => void;
+<<<<<<< HEAD
   mensaje?: string;
 }
 
@@ -36,6 +41,23 @@ export const AlertaPlaylist: React.FC<AlertaPlaylistProps> = ({
       >
         ✕
       </button>
+=======
+  mensaje: string;
+}
+
+export const AlertaPlaylist = ({ mostrar, alCerrar, mensaje }: AlertaPlaylistProps) => {
+  if (!mostrar) return null;
+
+  return (
+    <div className="alerta-playlist-overlay">
+      <div className="alerta-contenido-box">
+        <FaCheckCircle className="alerta-icono-check" />
+        <span className="alerta-texto">{mensaje}</span>
+        <button className="alerta-cerrar-btn" onClick={alCerrar} title="Cerrar">
+          <FaTimes />
+        </button>
+      </div>
+>>>>>>> e4c973d (carpetas ordenadas, con archivos y css en index)
     </div>
   );
 };
