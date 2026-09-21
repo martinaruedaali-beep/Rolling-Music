@@ -8,6 +8,7 @@ function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [mostrarPassword, setMostrarPassword] = useState(false)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,17 +44,59 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
-          className="auth-input"
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      <div className="auth-password">
+  <input
+    className="auth-input"
+    type={mostrarPassword ? 'text' : 'password'}
+    placeholder="Contraseña"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+  />
+
+  <button
+    className="auth-password-toggle"
+    type="button"
+    onClick={() => setMostrarPassword(!mostrarPassword)}
+  >
+    {mostrarPassword ? 'Ocultar' : 'Mostrar'}
+  </button>
+</div>
+    <div className="auth-options">
+  <label className="auth-checkbox">
+    <input type="checkbox" />
+    <span>Recordarme</span>
+  </label>
+
+  <button
+    className="auth-link"
+    type="button"
+    onClick={() => navigate('/recuperar-password')}
+  >
+    ¿Olvidaste tu contraseña?
+  </button>
+</div>
 
         <button className="auth-button" type="submit">
           Ingresar
         </button>
+        <button
+ className="auth-google"
+  type="button"
+  onClick={() => alert('Inicio de sesión con Google (simulación)')}
+>
+  Continuar con Google
+</button>
+
+<p className="auth-footer">
+  ¿No tenés una cuenta?{' '}
+  <button
+    className="auth-link"
+    type="button"
+    onClick={() => navigate('/registro')}
+  >
+    Registrate
+  </button>
+</p>
       </form>
       </section>
     </div>

@@ -92,10 +92,30 @@ function Registro() {
             value={confirmarPassword}
             onChange={(e) => setConfirmarPassword(e.target.value)}
           />
+        <button className="auth-button" type="submit">
+  Registrarse
+</button>
 
-          <button className="auth-button" type="submit">
-            Registrarse
-          </button>
+<button
+  className="auth-google"
+  type="button"
+  onClick={() => alert('Registro con Google (simulación)')}
+>
+  Continuar con Google
+</button>
+
+<p className="auth-footer">
+  ¿Ya tenés una cuenta?{' '}
+  <button
+    className="auth-link"
+    type="button"
+    onClick={() => navigate('/login')}
+  >
+    Iniciar sesión
+  </button>
+</p>
+         
+    
         </form>
       </section>
     </div>
