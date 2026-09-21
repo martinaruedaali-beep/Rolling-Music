@@ -45,6 +45,8 @@
 @media (max-width: 768px) {
   .destacadas {
     padding: 12px;
+    margin-left: 0;
+    padding-top: 90px;
   }
 
   .destacadas-grilla {
@@ -54,28 +56,5 @@
 
   .tarjeta img {
     height: 130px;
-  }
-}
-
-@media (max-width: 480px) {
-  .destacadas-grilla {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .tarjeta {
-    padding: 8px;
-  }
-
-  .tarjeta img {
-    height: 110px;
-  }
-
-  .tarjeta h3 {
-    font-size: 14px;
-  }
-
-  .tarjeta p {
-    font-size: 12px;
   }
 }
