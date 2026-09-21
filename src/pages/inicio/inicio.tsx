@@ -4,11 +4,12 @@ import Sidebar from '../../components/Sidebar/Sidebar'
 import Playlist from '../../components/Playlist'
 import Reproductor from '../../components/Reproductor/Reproductor'
 import Hero from '../../components/hero/hero'
+import Header from '../../components/Header/Header'
 import { obtenerSesion } from '../../services/sesionservice'
 
 function Inicio() {
   const [mostrarIntro, setMostrarIntro] = useState(true)
-  const sesion = obtenerSesion()  
+  const sesion = obtenerSesion()
 
   if (mostrarIntro) {
     return <Intro onFinish={() => setMostrarIntro(false)} />
@@ -17,6 +18,7 @@ function Inicio() {
   return (
     <div className="inicio-layout">
       <Sidebar />
+      <Header />
       <main className="inicio-content">
         {sesion && <Hero />}
         <Playlist />
@@ -24,5 +26,6 @@ function Inicio() {
       <Reproductor />
     </div>
   )
-} 
+}
+
 export default Inicio

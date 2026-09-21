@@ -26,7 +26,7 @@ function Login() {
     }
 
     iniciarSesion(usuarioEncontrado)
-    navigate('/')
+    navigate(usuarioEncontrado.rol === 'Admin' ? '/admin' : '/')
   }
 
   return (
