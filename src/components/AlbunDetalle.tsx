@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { Boton } from './Boton/Boton';
-import { TablaCanciones } from './TablaCanciones/TablaCanciones';
 import { ModalBuscador } from './Modal/ModalBuscador';
 import { AlertaPlaylist } from './Alertas/AlertaPlaylist';
 import { FiltrosGenero } from './Filtros/FiltrosGenero';
@@ -409,6 +408,45 @@ export const AlbunDetalle = () => {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
+  // Información dinámica para la ficha técnica del tema actual
+  const nombreAlbumActual = cancionActual?.album || albumActual.title;
+  const artistaActual = cancionActual?.artista || albumActual.artist;
+
+  const infoDiscos: Record<string, { lanzamiento: string; sello: string; duracion: string; temas: number }> = {
+    "Despedazado por mil partes": {
+      lanzamiento: "1996",
+      sello: "La Renga Discos",
+      duracion: "48 min",
+      temas: albumActual.songs.length
+    },
+    "Rock": {
+      lanzamiento: "Diversos",
+      sello: "Independiente",
+      duracion: "Varía",
+      temas: albumActual.songs.length
+    },
+    "Metal": {
+      lanzamiento: "Diversos",
+      sello: "Metal Heavy Sello",
+      duracion: "Varía",
+      temas: albumActual.songs.length
+    },
+    "Hard Rock": {
+      lanzamiento: "Diversos",
+      sello: "Rock & Sello",
+      duracion: "Varía",
+      temas: albumActual.songs.length
+    },
+    "Punk": {
+      lanzamiento: "Diversos",
+      sello: "Underground",
+      duracion: "Varía",
+      temas: albumActual.songs.length
+    }
+  };
+
+  const discoInfo = infoDiscos[nombreAlbumActual] || infoDiscos["Despedazado por mil partes"];
+
   return (
     <div className="detalle-album-wrapper">
       
@@ -593,59 +631,67 @@ export const AlbunDetalle = () => {
 
       {usuarioActual && (
         <div className="playlist-usuario-box">
-          <h3 className="section-title-clean flex-center-gap">
-            <FaFolderOpen className="text-primary-color" /> MIS CARPETAS ({usuarioActual.nombre.toUpperCase()})
-          </h3>
+          <details className="carpeta-acordeon-details">
+            <summary className="section-title-clean flex-center-gap">
+              <FaFolderOpen className="text-primary-color" /> MIS CARPETAS ({usuarioActual.nombre.toUpperCase()}) ▾
+            </summary>
 
-          <form onSubmit={crearCarpeta} className="carpeta-form-container">
-            <input 
-              type="text" 
-              placeholder="Nueva carpeta (ej. La Renga, Soda Stereo...)"
-              className="login-input carpeta-input-clean"
-              value={nombreNuevaCarpeta}
-              onChange={(e) => setNombreNuevaCarpeta(e.target.value)}
-            />
-            <button type="submit" className="login-btn-entrar carpeta-crear-btn">
-              <FaFolderPlus /> Crear
-            </button>
-          </form>
+            <div className="carpeta-contenido-desplegable">
+              <form onSubmit={crearCarpeta} className="carpeta-form-container">
+                <input 
+                  type="text" 
+                  placeholder="Nueva carpeta (ej. La Renga, Soda Stereo...)"
+                  className="login-input carpeta-input-clean"
+                  value={nombreNuevaCarpeta}
+                  onChange={(e) => setNombreNuevaCarpeta(e.target.value)}
+                />
+                <button type="submit" className="login-btn-entrar carpeta-crear-btn">
+                  <FaFolderPlus /> Crear
+                </button>
+              </form>
 
-          {carpetasUsuario.length > 0 ? (
-            carpetasUsuario.map(carpeta => (
-              <div key={carpeta.id} className="carpeta-item-card-clean">
-                <div className="carpeta-header-flex">
-                  <h4 className="carpeta-titulo-estilo">
-                    📁 {carpeta.nombre} <span className="carpeta-contador-texto">({carpeta.canciones.length} temas)</span>
-                  </h4>
-                  <button onClick={() => eliminarCarpeta(carpeta.id)} className="btn-eliminar-carpeta">
-                    <FaTrash /> Eliminar
-                  </button>
-                </div>
+              {carpetasUsuario.length > 0 ? (
+                carpetasUsuario.map(carpeta => (
+                  <details key={carpeta.id} className="carpeta-item-card-clean">
+                    <summary className="carpeta-header-flex">
+                      <span className="carpeta-titulo-estilo">
+                        📁 {carpeta.nombre} <span className="carpeta-contador-texto">({carpeta.canciones.length} temas)</span>
+                      </span>
+                      <button 
+                        type="button" 
+                        onClick={(e) => { e.preventDefault(); eliminarCarpeta(carpeta.id); }} 
+                        className="btn-eliminar-carpeta"
+                      >
+                        <FaTrash /> Eliminar
+                      </button>
+                    </summary>
 
-                {carpeta.canciones.length > 0 && (
-                  <div className="carpeta-canciones-lista">
-                    {carpeta.canciones.map(song => (
-                      <div key={song.id} className="playlist-item-card playlist-item-card-compact">
-                        <span className="playlist-song-title">
-                          <strong>{song.titulo}</strong> - <span className="playlist-song-artist">{song.artista}</span>
-                        </span>
-                        <div className="playlist-acciones-grupo">
-                          <button className="playlist-acciones-btn" onClick={() => reproducirCola([song], 0)} title="Reproducir">
-                            <FaPlay />
-                          </button>
-                          <button className="playlist-acciones-btn" onClick={() => eliminarDeCarpeta(carpeta.id, song.id)} title="Quitar">
-                            <FaTrash />
-                          </button>
-                        </div>
+                    {carpeta.canciones.length > 0 && (
+                      <div className="carpeta-canciones-lista">
+                        {carpeta.canciones.map(song => (
+                          <div key={song.id} className="playlist-item-card playlist-item-card-compact">
+                            <span className="playlist-song-title">
+                              <strong>{song.titulo}</strong> - <span className="playlist-song-artist">{song.artista}</span>
+                            </span>
+                            <div className="playlist-acciones-grupo">
+                              <button className="playlist-acciones-btn" onClick={() => reproducirCola([song], 0)} title="Reproducir">
+                                <FaPlay />
+                              </button>
+                              <button className="playlist-acciones-btn" onClick={() => eliminarDeCarpeta(carpeta.id, song.id)} title="Quitar">
+                                <FaTrash />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))
-          ) : (
-            <p className="text-muted-clean">No tienes carpetas creadas.</p>
-          )}
+                    )}
+                  </details>
+                ))
+              ) : (
+                <p className="text-muted-clean">No tienes carpetas creadas.</p>
+              )}
+            </div>
+          </details>
         </div>
       )}
 
@@ -679,6 +725,15 @@ export const AlbunDetalle = () => {
 
           <FiltrosGenero generos={listaGeneros} generoActivo={generoActivo} alSeleccionar={setGeneroActivo} />
           
+          <div className="artistas-genero-indicador">
+            <span>🎵 Artistas en este género: </span>
+            <strong className="artista-destacado-texto">
+              {generoActivo === 'Todo' 
+                ? "Todos los artistas del catálogo" 
+                : Array.from(new Set(cancionesFiltradas.map(s => s.artista))).join(", ")}
+            </strong>
+          </div>
+
           <div className="explorar-filtro-fila">
             <button 
               onClick={toggleSeleccionarTodos}
@@ -730,24 +785,18 @@ export const AlbunDetalle = () => {
         </div>
       )}
 
- <div className="playlist-usuario-box">
+      {/* Ficha técnica dinámica vinculada al tema en reproducción (sin texto descriptivo innecesario) */}
+      <div className="playlist-usuario-box">
         <h3 className="section-title-clean">
-          Canciones del Álbum actual: <span className="reproduciendo-subtext">{albumActual.title}</span> ({albumActual.artist})
+          📀 {nombreAlbumActual} - {artistaActual}
         </h3>
-
-        <TablaCanciones 
-          canciones={albumActual.songs} 
-          cancionActualId={cancionActual.id}
-          alReproducirCancion={(cancion) => {
-            if (!usuarioActual) {
-              alert("⚠️ Debe iniciar sesión para reproducir música.");
-              setMostrarLoginModal(true);
-              return;
-            }
-            const index = albumActual.songs.findIndex(s => s.id === cancion.id);
-            reproducirCola(albumActual.songs, index !== -1 ? index : 0);
-          }} 
-        />
+        
+        <div className="album-info-grid">
+          <div>📅 <strong>Lanzamiento:</strong> {discoInfo.lanzamiento}</div>
+          <div>⏱️ <strong>Duración tema:</strong> {cancionActual?.duracion || discoInfo.duracion}</div>
+          <div>🏷️ <strong>Sello:</strong> {discoInfo.sello}</div>
+          <div>🎵 <strong>Pista actual:</strong> {cancionActual?.titulo}</div>
+        </div>
       </div>
 
       {mostrarLoginModal && (
