@@ -1,7 +1,10 @@
 import { useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { obtenerUsuarios } from '../../services/usuarioservice'
+import { iniciarSesion } from '../../services/sesionservice'
 
 function Login() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -21,7 +24,8 @@ function Login() {
       return
     }
 
-    alert(`Bienvenido ${usuarioEncontrado.nombre}`)
+    iniciarSesion(usuarioEncontrado)
+    navigate(usuarioEncontrado.rol === 'Admin' ? '/admin' : '/')
   }
 
   return (

@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.destacadas {
+  padding: 20px;
+  margin-left: 240px;
+}
+
+.destacadas h2 {
+  margin-bottom: 16px;
+}
+
+.destacadas-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+.tarjeta {
+  background-color: #1e1e1e;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.tarjeta h3 {
+  font-size: 16px;
+  margin: 8px 0 4px;
+}
+
+.tarjeta p {
+  font-size: 13px;
+  color: #aaa;
+  margin: 2px 0;
+}
+@media (max-width: 768px) {
+  .destacadas {
+    padding: 12px;
+    margin-left: 0;
+    padding-top: 90px;
+  }
+
+  .destacadas-grilla {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .tarjeta img {
+    height: 130px;
+  }
+}
