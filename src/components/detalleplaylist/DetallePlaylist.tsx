@@ -15,16 +15,27 @@ function DetallePlaylist() {
 
   return (
     <section className="detalle-playlist">
-      <h2>{album.title}</h2>
-      <p>
-        {album.genre} - {album.songs.length} canciones
-      </p>
+      <button className="boton-volver" onClick={() => navigate('/favoritos')}>
+        ← Volver
+      </button>
 
-      <TablaCanciones
-        canciones={album.songs}
-        cancionActualId=""
-        alReproducirCancion={() => navigate('/cancion-no-disponible')}
-      />
+      <div className="detalle-cabecera">
+        <img src={album.coverImage} alt={album.title} />
+        <div>
+          <h2>{album.title}</h2>
+          <p>
+            {album.genre} - {album.songs.length} canciones
+          </p>
+        </div>
+      </div>
+
+      <div className="tabla-contenedor">
+        <TablaCanciones
+          canciones={album.songs}
+          cancionActualId=""
+          alReproducirCancion={() => navigate('/cancion-no-disponible')}
+        />
+      </div>
     </section>
   );
 }
