@@ -13,6 +13,7 @@ import Playlist from "./components/Playlist";
 import Reproductor from "./components/Reproductor/Reproductor";
 import DetallePlaylist from "./components/DetallePlaylist/DetallePlaylist";
 import NuevosLanzamientos from './components/NuevosLanzamientos/NuevosLanzamientos'
+import RutaAdmin from "./components/RutaAdmin/RutaAdmin";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         }
       />
       <Route path="*" element={<Error404 />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin" element={<RutaAdmin><Admin /></RutaAdmin>} />
       <Route path="/registro" element={<Registro />} />
       <Route path="/login" element={<Login />} />
       <Route
@@ -68,6 +69,7 @@ function App() {
       <NuevosLanzamientos />
       <Reproductor />
     </>
+
   }
 />
     </Routes>
