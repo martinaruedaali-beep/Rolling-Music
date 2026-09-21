@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { obtenerUsuarios } from '../../services/usuarioservice'
+import '../auth.css'
 
 function RecuperarPassword() {
   const [email, setEmail] = useState('')
@@ -25,23 +26,26 @@ function RecuperarPassword() {
   }
 
   return (
-    <div>
-      <h1>Recuperar contraseña</h1>
+    <div className="auth-page">
+      <section className="auth-card">
+      <h1 className="auth-title">Recuperar contraseña</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="auth-form" onSubmit={handleSubmit}>
         <input
+          className="auth-input"
           type="email"
           placeholder="Correo electrónico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit">
+        <button className="auth-button" type="submit">
           Recuperar contraseña
         </button>
       </form>
 
-      {mensaje && <p>{mensaje}</p>}
+      {mensaje && <p className="auth-message">{mensaje}</p>}
+      </section>
     </div>
   )
 }
