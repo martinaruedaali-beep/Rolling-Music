@@ -4,7 +4,7 @@ import './PlaylistsDestacadas.css';
 function PlaylistsDestacadas() {
   return (
     <section className="destacadas">
-      <h2>Playlists destacadas</h2>
+      <h2>Las mejores para vos.</h2>
 
       <div className="destacadas-grilla">
         {catalogoAlbums.map((album) => (
