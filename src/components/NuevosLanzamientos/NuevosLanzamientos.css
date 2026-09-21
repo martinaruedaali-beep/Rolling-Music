@@ -1,0 +1,21 @@
+.lanzamientos,
+.lanzamientos * {
+  box-sizing: border-box;
+}
+
+.lanzamientos {
+  margin-left: 260px;
+  padding: 100px 20px 120px;
+}
+
+.lanzamientos h2 {
+  margin-bottom: 16px;
+}
+
+.lanzamientos-carrusel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+
