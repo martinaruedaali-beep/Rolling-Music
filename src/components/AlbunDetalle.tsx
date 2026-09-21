@@ -730,9 +730,9 @@ export const AlbunDetalle = () => {
         </div>
       )}
 
-      <div className="playlist-usuario-box">
+ <div className="playlist-usuario-box">
         <h3 className="section-title-clean">
-          Canciones del Álbum: <span className="reproduciendo-subtext">{albumActual.title}</span>
+          Canciones del Álbum actual: <span className="reproduciendo-subtext">{albumActual.title}</span> ({albumActual.artist})
         </h3>
 
         <TablaCanciones 
