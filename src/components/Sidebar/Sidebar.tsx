@@ -41,6 +41,10 @@ function Sidebar() {
             <Music size={22} className="nav-icon" />
             <span>Géneros</span>
           </Link>
+          <Link to="/admin/musica" className="nav-item">
+            <Music size={22} className="nav-icon" />
+            <span>CRUD Música</span>
+          </Link>
         </nav>
         <Link to="/error404" className="premium">
           <Crown size={22} className="iconPremium" />

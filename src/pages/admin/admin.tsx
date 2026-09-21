@@ -5,6 +5,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Reproductor from '../../components/Reproductor/Reproductor';
 import Header from '../../components/Header/Header';
 import { AlbumDetalle } from '../../components/AlbumDetalle/AlbumDetalle';
+import CrudMusic from '../../components/CrudMusic/CrudMusic';
 
 const Admin: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Admin: React.FC = () => {
       <Sidebar/>
       <Reproductor/>
       <GestionUsuarios />
+      <CrudMusic />
       <AlbumDetalle />
     </main>
     </>
