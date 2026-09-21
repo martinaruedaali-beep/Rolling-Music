@@ -15,6 +15,8 @@ import DetallePlaylist from "./components/DetallePlaylist/DetallePlaylist";
 import NuevosLanzamientos from './components/NuevosLanzamientos/NuevosLanzamientos'
 import RutaAdmin from "./components/RutaAdmin/RutaAdmin";
 import { AlbumDetalle } from "./components/AlbumDetalle/AlbumDetalle";
+import './App.css'
+// comentario para pushear y que el deploy funcione
 
 function App() {
   return (
