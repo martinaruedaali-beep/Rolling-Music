@@ -18,9 +18,9 @@ export function obtenerUsuarios(): Usuario[] {
       },
       {
         id: 2,
-        nombre: "María",
-        apellido: "Gómez",
-        email: "maria@gmail.com",
+        nombre: "Zabdiel",
+        apellido: "Puma",
+        email: "zabdiel@gmail.com",
         password: "1234",
         rol: "Admin",
       },
