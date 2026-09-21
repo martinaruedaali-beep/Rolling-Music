@@ -1,0 +1,10 @@
+.inicio-content {
+	margin-left: 200px;
+	min-height: 100vh;
+}
+
+@media (max-width: 991px) {
+	.inicio-content {
+		margin-left: 0;
+	}
+}
