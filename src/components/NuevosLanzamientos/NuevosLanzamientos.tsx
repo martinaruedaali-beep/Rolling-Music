@@ -19,7 +19,11 @@ function NuevosLanzamientos() {
             className="lanzamiento-tarjeta"
             key={album.id}
           >
-       
+            <img src={album.coverImage} alt={album.title} />
+            <h3>{album.title}</h3>
+            <p>{album.artist}</p>
+            <p>{album.year}</p>
+          </Link>
         ))}
       </div>
     </section>
