@@ -20,31 +20,32 @@ function Sidebar() {
           <img className="logo-image" src={logo} alt="Rolling Music" />
         </a>
         <nav className="sidebar-nav">
-          <a href="/" className="nav-item">
+          <Link to="/" className="nav-item">
             <Home size={22} className="nav-icon" />
             <span>Inicio</span>
-          </a>
-          <a href="/" className="nav-item">
+          </Link>
+          {/* AQUÍ ESTÁ EL CAMBIO: Ahora apunta directo a tu ruta */}
+          <Link to="/playlist" className="nav-item">
             <Library size={22} className="nav-icon" />
             <span>Mi Playlist</span>
-          </a>
+          </Link>
           <Link to="/favoritos" className="nav-item">
             <Heart size={22} className="nav-icon" />
             <span>Favoritos</span>
           </Link>
-          <a href="/error404" className="nav-item">
+          <Link to="/error404" className="nav-item">
             <Users size={22} className="nav-icon" />
             <span>Artistas</span>
-          </a>
-          <a href="error404" className="nav-item">
+          </Link>
+          <Link to="/error404" className="nav-item">
             <Music size={22} className="nav-icon" />
             <span>Géneros</span>
-          </a>
+          </Link>
         </nav>
-        <a href="error404" className="premium">
+        <Link to="/error404" className="premium">
           <Crown size={22} className="iconPremium" />
           <p className="titlePremium">Contrata Premium</p>
-        </a>
+        </Link>
       </aside>
     </>
   );
