@@ -14,6 +14,7 @@ import Reproductor from "./components/Reproductor/Reproductor";
 import DetallePlaylist from "./components/DetallePlaylist/DetallePlaylist";
 import NuevosLanzamientos from './components/NuevosLanzamientos/NuevosLanzamientos'
 import RutaAdmin from "./components/RutaAdmin/RutaAdmin";
+import { AlbumDetalle } from "./components/AlbumDetalle/AlbumDetalle";
 
 function App() {
   return (
@@ -47,6 +48,17 @@ function App() {
             <PlaylistsDestacadas />
             <Reproductor />
           </>
+        }
+      />
+      <Route
+        path="/playlist"
+        element={
+          <RutaAdmin>
+            <Header />
+            <Sidebar />
+            <AlbumDetalle />
+            <Reproductor />
+          </RutaAdmin>
         }
       />
       <Route
