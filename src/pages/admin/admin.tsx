@@ -4,6 +4,7 @@ import GestionUsuarios from '../../components/GestionUsuarios/GestionUsuarios';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Reproductor from '../../components/Reproductor/Reproductor';
 import Header from '../../components/Header/Header';
+import { AlbumDetalle } from '../../components/AlbumDetalle/AlbumDetalle';
 
 const Admin: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const Admin: React.FC = () => {
       <Sidebar/>
       <Reproductor/>
       <GestionUsuarios />
+      <AlbumDetalle />
     </main>
     </>
   );
