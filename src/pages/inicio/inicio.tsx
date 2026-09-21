@@ -5,25 +5,27 @@ import Playlist from '../../components/Playlist'
 import Reproductor from '../../components/Reproductor/Reproductor'
 import Hero from '../../components/hero/hero'
 import Header from '../../components/Header/Header'
+import { obtenerSesion } from '../../services/sesionservice'
 
 function Inicio() {
   const [mostrarIntro, setMostrarIntro] = useState(true)
+  const sesion = obtenerSesion()
 
   if (mostrarIntro) {
     return <Intro onFinish={() => setMostrarIntro(false)} />
   }
 
-return (
-  <div className="inicio-layout">
-    <Sidebar />
-    <Header />
-    <main className="inicio-content">
-      <Hero />
-      <Playlist />
-    </main>
-    <Reproductor />
-  </div>
-)
+  return (
+    <div className="inicio-layout">
+      <Sidebar />
+      <Header />
+      <main className="inicio-content">
+        {sesion && <Hero />}
+        <Playlist />
+      </main>
+      <Reproductor />
+    </div>
+  )
 }
 
 export default Inicio
