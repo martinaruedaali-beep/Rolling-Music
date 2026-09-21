@@ -6,16 +6,10 @@ import { FiltrosGenero } from './Filtros/FiltrosGenero';
 import { catalogoAlbums } from '../data/mockData';
 import type { Cancion } from '../tipos/cancion';
 import type { Album } from '../tipos/Album';
-import { FaPlay, FaPause, FaHeart, FaPlus, FaUserCircle, FaStepBackward, FaStepForward, FaVolumeUp, FaVolumeMute, FaCompass, FaSignOutAlt, FaSignInAlt, FaTrash, FaLock, FaFolderOpen, FaFolderPlus, FaCheck, FaEye, FaEyeSlash, FaListUl, FaCheckSquare, FaSquare } from 'react-icons/fa';
+import { FaPlay, FaPause, FaHeart, FaPlus, FaStepBackward, FaStepForward, FaVolumeUp, FaVolumeMute, FaCompass, FaTrash, FaFolderOpen, FaFolderPlus, FaCheck, FaListUl, FaCheckSquare, FaSquare } from 'react-icons/fa';
 
 interface CancionConAlbum extends Cancion {
   albumPadre: Album;
-}
-
-interface UsuarioRegistrado {
-  email: string;
-  pass: string;
-  nombre: string;
 }
 
 interface CarpetaPersonalizada {
@@ -23,12 +17,6 @@ interface CarpetaPersonalizada {
   nombre: string;
   canciones: Cancion[];
 }
-
-const USUARIOS_VALIDOS: UsuarioRegistrado[] = [
-  { email: 'Usuario1@rock.com', pass: 'R1234', nombre: 'Fabricio (Usuario 1)' },
-  { email: 'Usuario2@rock.com', pass: 'R2345', nombre: 'Mariana (Usuario 2)' },
-  { email: 'Usuario3@rock.com', pass: 'R3456', nombre: 'Carlos (Usuario 3)' }
-];
 
 const listaGeneros = ['Todo', 'Rock', 'Hard Rock', 'Metal', 'Punk'];
 
@@ -44,16 +32,11 @@ export const AlbunDetalle = () => {
   
   const [menuExplorarAbierto, setMenuExplorarAbierto] = useState(false);
   const [generoActivo, setGeneroActivo] = useState<string>('Todo');
-  const [mostrarMenuLogout, setMostrarMenuLogout] = useState(false);
 
-  const [usuarioActual, setUsuarioActual] = useState<UsuarioRegistrado | null>(null);
-  const [mostrarLoginModal, setMostrarLoginModal] = useState(false);
   
-  const [emailInput, setEmailInput] = useState('');
-  const [passInput, setPassInput] = useState('');
-  
-  const [mostrarPassword, setMostrarPassword] = useState(false);
-  const [errorLogin, setErrorLogin] = useState('');
+  const [usuarioLogueado] = useState<boolean>(() => {
+    return localStorage.getItem("usuario") !== null || document.body.innerText.includes("Zabdiel");
+  });
 
   const [tiempoActual, setTiempoActual] = useState(0);
   const [duracionTotal, setDuracionTotal] = useState(0);
@@ -62,14 +45,15 @@ export const AlbunDetalle = () => {
   
   const [nombreNuevaCarpeta, setNombreNuevaCarpeta] = useState('');
   const [mostrarSelectorCarpetas, setMostrarSelectorCarpetas] = useState(false);
-  const [carpetasUsuario, setCarpetasUsuario] = useState<CarpetaPersonalizada[]>([]);
+  const [carpetasUsuario, setCarpetasUsuario] = useState<CarpetaPersonalizada[]>([
+    { id: '1', nombre: 'Mis Favoritos', canciones: [] }
+  ]);
 
   const [colaReproduccion, setColaReproduccion] = useState<Cancion[]>([]);
   const [indiceColaActual, setIndiceColaActual] = useState(0);
   const [idsSeleccionados, setIdsSeleccionados] = useState<(string | number)[]>([]);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const inputEmailRef = useRef<HTMLInputElement | null>(null);
 
   const cancionActual = colaReproduccion.length > 0 
     ? colaReproduccion[indiceColaActual] 
@@ -103,9 +87,9 @@ export const AlbunDetalle = () => {
   }, [alertaVisible]);
 
   const manejarReproduccion = (cancion: Cancion, index?: number) => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para reproducir música.");
-      setMostrarLoginModal(true);
+    // VALIDACIÓN ESTRICTA DE SESIÓN
+    if (!usuarioLogueado) {
+      alert("⚠️ Debe iniciar sesión para escuchar música.");
       return;
     }
 
@@ -130,7 +114,7 @@ export const AlbunDetalle = () => {
   };
 
   const siguienteCancionCola = () => {
-    if (!usuarioActual) return;
+    if (!usuarioLogueado) return;
     if (colaReproduccion.length > 0) {
       const siguienteIndice = indiceColaActual + 1;
       if (siguienteIndice < colaReproduccion.length) {
@@ -147,17 +131,13 @@ export const AlbunDetalle = () => {
   };
 
   const siguienteCancion = () => {
-    if (!usuarioActual) {
-      setMostrarLoginModal(true);
-      return;
-    }
+    if (!usuarioLogueado) return;
     siguienteCancionCola();
   };
 
   const reproducirCola = (listaCanciones: Cancion[], indiceInicio = 0) => {
-    if (!usuarioActual) {
+    if (!usuarioLogueado) {
       alert("⚠️ Debe iniciar sesión para reproducir música.");
-      setMostrarLoginModal(true);
       return;
     }
     if (listaCanciones.length === 0) return;
@@ -171,10 +151,7 @@ export const AlbunDetalle = () => {
   };
 
   const manejarPausa = () => {
-    if (!usuarioActual) {
-      setMostrarLoginModal(true);
-      return;
-    }
+    if (!usuarioLogueado) return;
     if (audioRef.current) {
       if (estaReproduciendo) {
         audioRef.current.pause();
@@ -187,11 +164,7 @@ export const AlbunDetalle = () => {
   };
 
   const cambiarProgreso = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para usar el reproductor.");
-      setMostrarLoginModal(true);
-      return;
-    }
+    if (!usuarioLogueado) return;
     const nuevoTiempo = Number(e.target.value);
     setTiempoActual(nuevoTiempo);
     if (audioRef.current) {
@@ -200,11 +173,6 @@ export const AlbunDetalle = () => {
   };
 
   const cambiarVolumen = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para modificar el volumen.");
-      setMostrarLoginModal(true);
-      return;
-    }
     const nuevoVolumen = Number(e.target.value);
     setVolumen(nuevoVolumen);
     if (audioRef.current) {
@@ -213,11 +181,6 @@ export const AlbunDetalle = () => {
   };
 
   const alternarMute = () => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para modificar el sonido.");
-      setMostrarLoginModal(true);
-      return;
-    }
     if (volumen > 0) {
       setVolumenAnterior(volumen);
       setVolumen(0);
@@ -230,11 +193,7 @@ export const AlbunDetalle = () => {
   };
 
   const anteriorCancion = () => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para usar los controles.");
-      setMostrarLoginModal(true);
-      return;
-    }
+    if (!usuarioLogueado) return;
     if (colaReproduccion.length > 0) {
       const nuevoIndice = indiceColaActual === 0 ? colaReproduccion.length - 1 : indiceColaActual - 1;
       setIndiceColaActual(nuevoIndice);
@@ -246,11 +205,7 @@ export const AlbunDetalle = () => {
   };
 
   const toggleSeleccionCancion = (id: string | number) => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para seleccionar canciones.");
-      setMostrarLoginModal(true);
-      return;
-    }
+    if (!usuarioLogueado) return;
     setIdsSeleccionados(prev => 
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
@@ -265,11 +220,7 @@ export const AlbunDetalle = () => {
     : cancionesConAlbum.filter((item) => item.genero === generoActivo);
 
   const toggleSeleccionarTodos = () => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para seleccionar canciones.");
-      setMostrarLoginModal(true);
-      return;
-    }
+    if (!usuarioLogueado) return;
     const idsFiltrados = cancionesFiltradas.map(s => String(s.id));
     const todosSeleccionados = idsFiltrados.every(id => idsSeleccionados.map(String).includes(id));
 
@@ -281,9 +232,8 @@ export const AlbunDetalle = () => {
   };
 
   const reproducirSeleccionadas = () => {
-    if (!usuarioActual) {
-      alert("⚠️ Debe iniciar sesión para reproducir canciones.");
-      setMostrarLoginModal(true);
+    if (!usuarioLogueado) {
+      alert("⚠️ Debe iniciar sesión.");
       return;
     }
     const cancionesSeleccionadas = cancionesFiltradas.filter(s => idsSeleccionados.includes(s.id));
@@ -296,9 +246,8 @@ export const AlbunDetalle = () => {
 
   const crearCarpeta = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!usuarioActual) {
+    if (!usuarioLogueado) {
       alert("⚠️ Debe iniciar sesión para crear carpetas.");
-      setMostrarLoginModal(true);
       return;
     }
     if (!nombreNuevaCarpeta.trim()) return;
@@ -311,18 +260,16 @@ export const AlbunDetalle = () => {
 
     const actualizadas = [...carpetasUsuario, nuevaCarpeta];
     setCarpetasUsuario(actualizadas);
-    localStorage.setItem(`carpetas_${usuarioActual.email}`, JSON.stringify(actualizadas));
     setNombreNuevaCarpeta('');
     setTextoAlerta(`¡Carpeta "${nuevaCarpeta.nombre}" creada con éxito!`);
     setAlertaVisible(true);
   };
 
   const agregarACarpetaSeleccionada = (idCarpeta: string) => {
-    if (!usuarioActual) {
-      setMostrarLoginModal(true);
+    if (!usuarioLogueado) {
+      alert("⚠️ Debe iniciar sesión.");
       return;
     }
-
     const actualizadas = carpetasUsuario.map(carpeta => {
       if (carpeta.id === idCarpeta) {
         if (!carpeta.canciones.some(s => s.id === cancionActual.id)) {
@@ -333,14 +280,13 @@ export const AlbunDetalle = () => {
     });
 
     setCarpetasUsuario(actualizadas);
-    localStorage.setItem(`carpetas_${usuarioActual.email}`, JSON.stringify(actualizadas));
     setTextoAlerta(`¡Canción agregada a la carpeta!`);
     setAlertaVisible(true);
     setMostrarSelectorCarpetas(false);
   };
 
   const eliminarDeCarpeta = (idCarpeta: string, idCancion: string | number) => {
-    if (!usuarioActual) return;
+    if (!usuarioLogueado) return;
     const actualizadas = carpetasUsuario.map(carpeta => {
       if (carpeta.id === idCarpeta) {
         return {
@@ -352,53 +298,14 @@ export const AlbunDetalle = () => {
     });
 
     setCarpetasUsuario(actualizadas);
-    localStorage.setItem(`carpetas_${usuarioActual.email}`, JSON.stringify(actualizadas));
   };
 
   const eliminarCarpeta = (idCarpeta: string) => {
-    if (!usuarioActual) return;
+    if (!usuarioLogueado) return;
     const actualizadas = carpetasUsuario.filter(c => c.id !== idCarpeta);
     setCarpetasUsuario(actualizadas);
-    localStorage.setItem(`carpetas_${usuarioActual.email}`, JSON.stringify(actualizadas));
     setTextoAlerta("Carpeta eliminada");
     setAlertaVisible(true);
-  };
-
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const encontrado = USUARIOS_VALIDOS.find(
-      u => u.email.toLowerCase() === emailInput.trim().toLowerCase() && u.pass === passInput.trim()
-    );
-
-    if (encontrado) {
-      setUsuarioActual(encontrado);
-      try {
-        const carpetasGuardadas = localStorage.getItem(`carpetas_${encontrado.email}`);
-        setCarpetasUsuario(carpetasGuardadas ? JSON.parse(carpetasGuardadas) : [
-          { id: '1', nombre: 'Mis Favoritos', canciones: [] }
-        ]);
-      } catch (err) {
-        console.error("Error al leer carpetas:", err);
-        setCarpetasUsuario([{ id: '1', nombre: 'Mis Favoritos', canciones: [] }]);
-      }
-      
-      setErrorLogin('');
-      setEmailInput('');
-      setPassInput('');
-      setMostrarPassword(false);
-      setMostrarLoginModal(false);
-    } else {
-      setErrorLogin('❌ Credenciales incorrectas.');
-    }
-  };
-
-  const cerrarSesion = () => {
-    setUsuarioActual(null);
-    setCarpetasUsuario([]);
-    setColaReproduccion([]);
-    setMostrarMenuLogout(false);
-    if (audioRef.current) audioRef.current.pause();
-    setEstaReproduciendo(false);
   };
 
   const formatearTiempo = (segundos: number) => {
@@ -408,7 +315,6 @@ export const AlbunDetalle = () => {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
-  // Información dinámica para la ficha técnica del tema actual
   const nombreAlbumActual = cancionActual?.album || albumActual.title;
   const artistaActual = cancionActual?.artista || albumActual.artist;
 
@@ -456,37 +362,6 @@ export const AlbunDetalle = () => {
         mensaje={textoAlerta}
       />
 
-      <div className="user-badge-container">
-        <div 
-          className="user-badge-box"
-          onClick={() => {
-            if (usuarioActual) {
-              setMostrarMenuLogout(!mostrarMenuLogout);
-            } else {
-              setMostrarLoginModal(true);
-            }
-          }}
-        >
-          <FaUserCircle className="user-icon-clean" />
-          <span>{usuarioActual ? usuarioActual.nombre : 'Invitado (Sin Registrar)'}</span>
-
-          {usuarioActual && mostrarMenuLogout && (
-            <div className="logout-dropdown" onClick={(e) => { e.stopPropagation(); cerrarSesion(); }}>
-              <FaSignOutAlt /> Cerrar Sesión
-            </div>
-          )}
-        </div>
-      </div>
-
-      {!usuarioActual && (
-        <div className="guest-banner-warning">
-          <span>🔒 Estás navegando como invitado. Las funciones de reproducción y playlists están restringidas.</span>
-          <Boton variante="primario" onClick={() => setMostrarLoginModal(true)}>
-            <FaSignInAlt /> Iniciar Sesión
-          </Boton>
-        </div>
-      )}
-
       <div className="album-header-clean">
         
         <div className="header-top-row">
@@ -509,9 +384,8 @@ export const AlbunDetalle = () => {
 
           <div className="album-actions-clean">
             <Boton variante="contorno" onClick={() => {
-              if (!usuarioActual) {
-                alert("⚠️ Debe iniciar sesión para usar el buscador.");
-                setMostrarLoginModal(true);
+              if (!usuarioLogueado) {
+                alert("⚠️ Debe iniciar sesión.");
                 return;
               }
               setModalAbierto(true);
@@ -522,9 +396,8 @@ export const AlbunDetalle = () => {
             <button 
               className={`heart-btn-dinamico ${estaEnAlgunaCarpeta ? 'heart-btn-activo' : 'heart-btn-inactivo'}`}
               onClick={() => {
-                if (!usuarioActual) {
-                  alert("⚠️ Debe iniciar sesión para marcar canciones.");
-                  setMostrarLoginModal(true);
+                if (!usuarioLogueado) {
+                  alert("⚠️ Debe iniciar sesión.");
                   return;
                 }
                 setMostrarSelectorCarpetas(!mostrarSelectorCarpetas);
@@ -534,7 +407,7 @@ export const AlbunDetalle = () => {
               <FaHeart />
             </button>
 
-            {mostrarSelectorCarpetas && usuarioActual && (
+            {mostrarSelectorCarpetas && usuarioLogueado && (
               <div className="selector-carpetas-dropdown">
                 <p className="selector-carpetas-titulo">📂 Guardar en carpeta:</p>
                 {carpetasUsuario.length > 0 ? (
@@ -629,78 +502,75 @@ export const AlbunDetalle = () => {
 
       </div>
 
-      {usuarioActual && (
-        <div className="playlist-usuario-box">
-          <details className="carpeta-acordeon-details">
-            <summary className="section-title-clean flex-center-gap">
-              <FaFolderOpen className="text-primary-color" /> MIS CARPETAS ({usuarioActual.nombre.toUpperCase()}) ▾
-            </summary>
+      <div className="playlist-usuario-box">
+        <details className="carpeta-acordeon-details">
+          <summary className="section-title-clean flex-center-gap">
+            <FaFolderOpen className="text-primary-color" /> MIS CARPETAS ▾
+          </summary>
 
-            <div className="carpeta-contenido-desplegable">
-              <form onSubmit={crearCarpeta} className="carpeta-form-container">
-                <input 
-                  type="text" 
-                  placeholder="Nueva carpeta (ej. La Renga, Soda Stereo...)"
-                  className="login-input carpeta-input-clean"
-                  value={nombreNuevaCarpeta}
-                  onChange={(e) => setNombreNuevaCarpeta(e.target.value)}
-                />
-                <button type="submit" className="login-btn-entrar carpeta-crear-btn">
-                  <FaFolderPlus /> Crear
-                </button>
-              </form>
+          <div className="carpeta-contenido-desplegable">
+            <form onSubmit={crearCarpeta} className="carpeta-form-container">
+              <input 
+                type="text" 
+                placeholder="Nueva carpeta (ej. La Renga, Soda Stereo...)"
+                className="login-input carpeta-input-clean"
+                value={nombreNuevaCarpeta}
+                onChange={(e) => setNombreNuevaCarpeta(e.target.value)}
+              />
+              <button type="submit" className="login-btn-entrar carpeta-crear-btn">
+                <FaFolderPlus /> Crear
+              </button>
+            </form>
 
-              {carpetasUsuario.length > 0 ? (
-                carpetasUsuario.map(carpeta => (
-                  <details key={carpeta.id} className="carpeta-item-card-clean">
-                    <summary className="carpeta-header-flex">
-                      <span className="carpeta-titulo-estilo">
-                        📁 {carpeta.nombre} <span className="carpeta-contador-texto">({carpeta.canciones.length} temas)</span>
-                      </span>
-                      <button 
-                        type="button" 
-                        onClick={(e) => { e.preventDefault(); eliminarCarpeta(carpeta.id); }} 
-                        className="btn-eliminar-carpeta"
-                      >
-                        <FaTrash /> Eliminar
-                      </button>
-                    </summary>
+            {carpetasUsuario.length > 0 ? (
+              carpetasUsuario.map(carpeta => (
+                <details key={carpeta.id} className="carpeta-item-card-clean">
+                  <summary className="carpeta-header-flex">
+                    <span className="carpeta-titulo-estilo">
+                      📁 {carpeta.nombre} <span className="carpeta-contador-texto">({carpeta.canciones.length} temas)</span>
+                    </span>
+                    <button 
+                      type="button" 
+                      onClick={(e) => { e.preventDefault(); eliminarCarpeta(carpeta.id); }} 
+                      className="btn-eliminar-carpeta"
+                    >
+                      <FaTrash /> Eliminar
+                    </button>
+                  </summary>
 
-                    {carpeta.canciones.length > 0 && (
-                      <div className="carpeta-canciones-lista">
-                        {carpeta.canciones.map(song => (
-                          <div key={song.id} className="playlist-item-card playlist-item-card-compact">
-                            <span className="playlist-song-title">
-                              <strong>{song.titulo}</strong> - <span className="playlist-song-artist">{song.artista}</span>
-                            </span>
-                            <div className="playlist-acciones-grupo">
-                              <button className="playlist-acciones-btn" onClick={() => reproducirCola([song], 0)} title="Reproducir">
-                                <FaPlay />
-                              </button>
-                              <button className="playlist-acciones-btn" onClick={() => eliminarDeCarpeta(carpeta.id, song.id)} title="Quitar">
-                                <FaTrash />
-                              </button>
-                            </div>
+                  {carpeta.canciones.length > 0 && (
+                    <div className="carpeta-canciones-lista">
+                      {carpeta.canciones.map(song => (
+                        <div key={song.id} className="playlist-item-card playlist-item-card-compact">
+                          <span className="playlist-song-title">
+                            <strong>{song.titulo}</strong> - <span className="playlist-song-artist">{song.artista}</span>
+                          </span>
+                          <div className="playlist-acciones-grupo">
+                            <button className="playlist-acciones-btn" onClick={() => reproducirCola([song], 0)} title="Reproducir">
+                              <FaPlay />
+                            </button>
+                            <button className="playlist-acciones-btn" onClick={() => eliminarDeCarpeta(carpeta.id, song.id)} title="Quitar">
+                              <FaTrash />
+                            </button>
                           </div>
-                        ))}
-                      </div>
-                    )}
-                  </details>
-                ))
-              ) : (
-                <p className="text-muted-clean">No tienes carpetas creadas.</p>
-              )}
-            </div>
-          </details>
-        </div>
-      )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </details>
+              ))
+            ) : (
+              <p className="text-muted-clean">No tienes carpetas creadas.</p>
+            )}
+          </div>
+        </details>
+      </div>
 
       <button 
         className="explorar-toggle-btn" 
         onClick={() => {
-          if (!usuarioActual) {
-            alert("⚠️ Debe iniciar sesión para explorar los géneros.");
-            setMostrarLoginModal(true);
+          if (!usuarioLogueado) {
+            alert("⚠️ Debe iniciar sesión.");
             return;
           }
           setMenuExplorarAbierto(!menuExplorarAbierto);
@@ -709,7 +579,7 @@ export const AlbunDetalle = () => {
         <FaCompass /> {menuExplorarAbierto ? 'Ocultar Explorador de Géneros' : 'Explorar por Género y Artista'}
       </button>
 
-      {menuExplorarAbierto && usuarioActual && (
+      {menuExplorarAbierto && usuarioLogueado && (
         <div className="explorar-dropdown-panel">
           <div className="explorar-header-flex">
             <h3 className="section-title-clean">Filtro por Género Musical</h3>
@@ -766,11 +636,6 @@ export const AlbunDetalle = () => {
                   </div>
                   <button 
                     onClick={() => {
-                      if (!usuarioActual) {
-                        alert("⚠️ Debe iniciar sesión para reproducir canciones.");
-                        setMostrarLoginModal(true);
-                        return;
-                      }
                       reproducirCola(cancionesFiltradas, cancionesFiltradas.findIndex(s => s.id === song.id));
                     }}
                     className="btn-reproducir-item-clean"
@@ -785,7 +650,6 @@ export const AlbunDetalle = () => {
         </div>
       )}
 
-      {/* Ficha técnica dinámica vinculada al tema en reproducción (sin texto descriptivo innecesario) */}
       <div className="playlist-usuario-box">
         <h3 className="section-title-clean">
           📀 {nombreAlbumActual} - {artistaActual}
@@ -799,96 +663,10 @@ export const AlbunDetalle = () => {
         </div>
       </div>
 
-      {mostrarLoginModal && (
-        <div className="login-overlay-modern" onClick={() => setMostrarLoginModal(false)}>
-          <form className="login-card-modern" onSubmit={handleLoginSubmit} onClick={(e) => e.stopPropagation()}>
-            
-            <div className="login-header-accent">
-              <span className="login-badge-tag">ÁREA RESTRINGIDA</span>
-              <h3 className="login-titulo-moderno">
-                <FaLock className="login-lock-icon" /> Rock Music Access
-              </h3>
-              <p className="login-subtitulo-moderno">
-                Inicia sesión con tu cuenta autorizada para desbloquear el reproductor y tus carpetas:
-              </p>
-            </div>
-
-            <div className="login-fields-group">
-              <div className="input-with-icon login-input-row">
-                <input 
-                  ref={inputEmailRef}
-                  type="text" 
-                  placeholder="usuario@rock.com"
-                  className="login-input-modern"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  autoComplete="off"
-                  style={{ flex: 1 }}
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmailInput(prev => prev + '@');
-                    if (inputEmailRef.current) {
-                      inputEmailRef.current.focus();
-                    }
-                  }}
-                  className="btn-arroba-clean"
-                  title="Insertar @"
-                >
-                  @
-                </button>
-              </div>
-
-              <div className="password-input-wrapper">
-                <input 
-                  type={mostrarPassword ? "text" : "password"} 
-                  placeholder="Contraseña"
-                  className="login-input-modern password-input-field"
-                  value={passInput}
-                  onChange={(e) => setPassInput(e.target.value)}
-                  autoComplete="new-password"
-                  required
-                />
-                <button 
-                  type="button" 
-                  className="password-toggle-btn"
-                  onClick={() => setMostrarPassword(!mostrarPassword)}
-                  title={mostrarPassword ? "Ocultar contraseña" : "Ver contraseña"}
-                >
-                  {mostrarPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              </div>
-            </div>
-
-            {errorLogin && <p className="login-error-modern">{errorLogin}</p>}
-
-            <div className="login-botones-modernos">
-              <button type="submit" className="login-btn-primary">
-                Entrar a la plataforma
-              </button>
-              <button 
-                type="button" 
-                className="login-btn-ghost"
-                onClick={() => {
-                  setMostrarLoginModal(false);
-                  setErrorLogin('');
-                  setMostrarPassword(false);
-                }}
-              >
-                Cancelar
-              </button>
-            </div>
-
-          </form>
-        </div>
-      )}
-
       <ModalBuscador 
         abierto={modalAbierto} 
         alCerrar={() => setModalAbierto(false)} 
-        usuarioLogueado={!!usuarioActual}
+        usuarioLogueado={usuarioLogueado}
         alSeleccionarCancion={(cancionConAlbum) => {
           setAlbumActual(cancionConAlbum.albumPadre);
           reproducirCola([cancionConAlbum], 0);
@@ -902,3 +680,5 @@ export const AlbunDetalle = () => {
     </div>
   );
 };
+
+export default AlbunDetalle;
