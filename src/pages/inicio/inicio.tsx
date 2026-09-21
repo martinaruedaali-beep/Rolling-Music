@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar/Sidebar'
 import Playlist from '../../components/Playlist'
 import Reproductor from '../../components/Reproductor/Reproductor'
 import Hero from '../../components/hero/hero'
+import Header from '../../components/Header/Header'
 
 function Inicio() {
   const [mostrarIntro, setMostrarIntro] = useState(true)
@@ -15,6 +16,7 @@ function Inicio() {
 return (
   <div className="inicio-layout">
     <Sidebar />
+    <Header />
     <main className="inicio-content">
       <Hero />
       <Playlist />
