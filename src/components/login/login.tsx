@@ -27,7 +27,7 @@ function Login() {
     }
 
     iniciarSesion(usuarioEncontrado)
-    navigate(usuarioEncontrado.rol === 'Admin' ? '/admin' : '/')
+    navigate(usuarioEncontrado.rol === 'Admin' ? '/admin' : '/playlist')
   }
 
   return (
