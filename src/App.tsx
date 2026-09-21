@@ -6,6 +6,10 @@ import Admin from './pages/admin/admin'
 import Registro from './components/Registro/Registro'
 import Login from './components/login/login'
 import Header from './components/Header/Header'
+import PlaylistsDestacadas from './components/PlaylistsDestacadas/PlaylistsDestacadas';
+import Sidebar from './components/Sidebar/Sidebar'
+import Playlist from './components/Playlist'
+import Reproductor from './components/Reproductor/Reproductor'
 
 function App() {
   return (
@@ -26,6 +30,7 @@ function App() {
       <Route path="/admin" element={<Admin />} />
       <Route path="/registro" element={<Registro />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/playlists" element={<PlaylistsDestacadas />} />
     </Routes>
   );
 }
