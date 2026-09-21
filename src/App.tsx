@@ -15,6 +15,7 @@ import DetallePlaylist from "./components/DetallePlaylist/DetallePlaylist";
 import NuevosLanzamientos from './components/NuevosLanzamientos/NuevosLanzamientos'
 import RutaAdmin from "./components/RutaAdmin/RutaAdmin";
 import { AlbumDetalle } from "./components/AlbumDetalle/AlbumDetalle";
+import CrudMusic from "./components/CrudMusic/CrudMusic";
 
 function App() {
   return (
@@ -84,6 +85,38 @@ function App() {
 
   }
 />
+      <Route
+        path="/admin/musica"
+        element={
+          <RutaAdmin>
+            <>
+              <Header />
+              <Sidebar />
+              <main className="contenedorAdmin">
+                <h1 className="tituloAdmin">Gestión Musical</h1>
+                <CrudMusic />
+              </main>
+              <Reproductor />
+            </>
+          </RutaAdmin>
+        }
+      />
+      <Route
+        path="/crud-music"
+        element={
+          <RutaAdmin>
+            <>
+              <Header />
+              <Sidebar />
+              <main className="contenedorAdmin">
+                <h1 className="tituloAdmin">Gestión Musical</h1>
+                <CrudMusic />
+              </main>
+              <Reproductor />
+            </>
+          </RutaAdmin>
+        }
+      />
     </Routes>
   );
 }

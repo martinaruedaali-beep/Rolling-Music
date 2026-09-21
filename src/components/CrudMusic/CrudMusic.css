@@ -1,0 +1,421 @@
+.crud-music-container {
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--text);
+}
+
+.crud-music-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 10px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.crud-music-title {
+  font-family: var(--font-title);
+  font-size: 26px;
+  margin: 0;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.5px;
+}
+
+.crud-music-title-icon {
+  color: var(--primary);
+  font-size: 22px;
+}
+
+.crud-music-count {
+  background: rgba(229, 9, 20, 0.15);
+  border: 1px solid rgba(229, 9, 20, 0.4);
+  color: var(--primary-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.crud-music-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.crud-music-filtros {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.crud-music-search {
+  flex: 1;
+  max-width: 420px;
+}
+
+.crud-music-select-genero {
+  min-width: 180px;
+}
+
+.crud-music-acciones-top {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.crud-music-btn {
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.crud-music-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.crud-music-btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.crud-music-btn-primary:hover:not(:disabled) {
+  background: var(--primary-light);
+  box-shadow: var(--shadow-red);
+}
+
+.crud-music-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+.crud-music-btn-ghost:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--text-muted);
+  background: var(--surface);
+}
+
+.crud-music-btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.crud-music-btn-danger:hover:not(:disabled) {
+  background: var(--danger);
+  color: #fff;
+}
+
+.crud-music-info {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.crud-music-tabla-contenedor {
+  border-radius: 10px;
+}
+
+.crud-music-tabla {
+  min-width: 700px;
+}
+
+/* AntD overrides para mantener tema oscuro - inputs dentro del contenedor */
+.crud-music-container .ant-input,
+.crud-music-container .ant-select-selector {
+  background: var(--surface-light) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+.crud-music-container .ant-input::placeholder {
+  color: var(--text-dark) !important;
+}
+
+.crud-music-container .ant-select-arrow {
+  color: var(--text-muted) !important;
+}
+
+/* === MODAL CRUD MÚSICA - Tema oscuro naranja (fix fondo blanco) === */
+.crud-music-modal .ant-modal-content,
+.crud-music-modal-root .ant-modal-content,
+.ant-modal-confirm .ant-modal-content {
+  background-color: #141414 !important;
+  border: 1px solid rgba(229, 9, 20, 0.45) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), 0 0 18px rgba(229, 9, 20, 0.25) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.crud-music-modal .ant-modal-header,
+.crud-music-modal-root .ant-modal-header,
+.ant-modal-confirm .ant-modal-header {
+  background: #141414 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 16px 24px !important;
+  margin-bottom: 0 !important;
+}
+
+.crud-music-modal .ant-modal-title,
+.crud-music-modal-root .ant-modal-title,
+.ant-modal-confirm .ant-modal-confirm-title {
+  color: #ffffff !important;
+  font-family: var(--font-heading) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+}
+
+.crud-music-modal .ant-modal-body,
+.crud-music-modal-root .ant-modal-body,
+.ant-modal-confirm .ant-modal-body {
+  background: #141414 !important;
+  padding: 20px 24px !important;
+  color: #ffffff !important;
+}
+
+.crud-music-modal .ant-modal-footer,
+.crud-music-modal-root .ant-modal-footer,
+.ant-modal-confirm .ant-modal-footer {
+  background: #141414 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 14px 24px !important;
+  margin-top: 0 !important;
+}
+
+.crud-music-modal .ant-modal-close,
+.crud-music-modal-root .ant-modal-close,
+.ant-modal-confirm .ant-modal-close {
+  color: #a6a6a6 !important;
+  top: 12px !important;
+  right: 12px !important;
+}
+.crud-music-modal .ant-modal-close:hover,
+.crud-music-modal-root .ant-modal-close:hover {
+  color: #ffffff !important;
+  background: rgba(229, 9, 20, 0.2) !important;
+  border-radius: 6px;
+}
+
+/* Overlay oscuro */
+.crud-music-modal-root .ant-modal-mask,
+.ant-modal-confirm .ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(3px);
+}
+
+/* Form labels y textos dentro del modal */
+.crud-music-modal .ant-form-item-label > label,
+.crud-music-modal-root .ant-form-item-label > label {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+.crud-music-modal .ant-form-item-required::before {
+  color: var(--primary) !important;
+}
+.crud-music-modal .ant-form-item-extra,
+.crud-music-modal-root .ant-form-item-extra {
+  color: #a6a6a6 !important;
+}
+
+/* Inputs y Select dentro del modal (portal fuera del container) */
+.crud-music-modal .ant-input,
+.crud-music-modal-root .ant-input,
+.crud-music-modal .ant-select-selector,
+.crud-music-modal-root .ant-select-selector {
+  background-color: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+}
+.crud-music-modal .ant-input::placeholder,
+.crud-music-modal-root .ant-input::placeholder {
+  color: #666666 !important;
+}
+.crud-music-modal .ant-input:focus,
+.crud-music-modal-root .ant-input:focus,
+.crud-music-modal .ant-select-focused .ant-select-selector,
+.crud-music-modal-root .ant-select-focused .ant-select-selector {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2) !important;
+}
+.crud-music-modal .ant-select-arrow,
+.crud-music-modal-root .ant-select-arrow {
+  color: #a6a6a6 !important;
+}
+.crud-music-modal .ant-select-selection-placeholder,
+.crud-music-modal-root .ant-select-selection-placeholder {
+  color: #666666 !important;
+}
+.crud-music-modal .ant-select-selection-item,
+.crud-music-modal-root .ant-select-selection-item {
+  color: #ffffff !important;
+}
+
+/* Dropdown del Select - oscuro */
+.ant-select-dropdown {
+  background-color: #1a1a1a !important;
+  border: 1px solid rgba(229, 9, 20, 0.3) !important;
+  border-radius: 8px !important;
+}
+.ant-select-item {
+  color: #ffffff !important;
+}
+.ant-select-item-option-active,
+.ant-select-item-option-selected {
+  background-color: rgba(229, 9, 20, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Botones del footer del modal */
+.crud-music-modal .ant-btn,
+.crud-music-modal-root .ant-btn,
+.ant-modal-confirm .ant-btn {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  height: 36px !important;
+  padding: 0 18px !important;
+}
+
+.crud-music-modal-ok,
+.ant-modal-confirm .ant-btn-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #ffffff !important;
+  box-shadow: var(--shadow-red) !important;
+}
+.crud-music-modal-ok:hover,
+.ant-modal-confirm .ant-btn-primary:hover {
+  background-color: var(--primary-light) !important;
+  border-color: var(--primary-light) !important;
+  color: #ffffff !important;
+}
+
+.crud-music-modal-cancel,
+.ant-modal-confirm .ant-btn-default {
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+.crud-music-modal-cancel:hover,
+.ant-modal-confirm .ant-btn-default:hover {
+  background-color: #222222 !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+/* Botón danger (Modal.confirm okType danger) */
+.ant-modal-confirm .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #ffffff !important;
+}
+.ant-modal-confirm .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: #a80008 !important;
+  border-color: #a80008 !important;
+}
+
+/* Textos de confirm */
+.ant-modal-confirm .ant-modal-confirm-content,
+.ant-modal-confirm .ant-modal-confirm-paragraph {
+  color: #a6a6a6 !important;
+}
+.ant-modal-confirm .ant-modal-confirm-body .anticon {
+  color: var(--primary) !important;
+}
+
+/* Responsive igual que GestionUsuarios */
+@media (max-width: 768px) {
+  .crud-music-toolbar {
+    flex-direction: column;
+  }
+  .crud-music-filtros {
+    width: 100%;
+  }
+  .crud-music-search {
+    max-width: 100%;
+  }
+  .crud-music-acciones-top {
+    width: 100%;
+  }
+  .crud-music-btn {
+    flex: 1;
+    justify-content: center;
+  }
+  .crud-music-title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .crud-music-container {
+    padding: 12px;
+  }
+  .crud-music-title {
+    font-size: 20px;
+  }
+  .crud-music-tabla {
+    min-width: 0;
+    border: none;
+  }
+  .crud-music-tabla thead {
+    display: none;
+  }
+  .crud-music-tabla,
+  .crud-music-tabla tbody,
+  .crud-music-tabla tr,
+  .crud-music-tabla td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .crud-music-tabla tr {
+    margin-bottom: 16px;
+    border: 2px solid var(--text-muted);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .crud-music-tabla td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+    text-align: right;
+  }
+  .crud-music-tabla td:first-child {
+    border-top: none;
+  }
+  .crud-music-tabla td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .crud-music-tabla td[data-label="Acciones"] {
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
