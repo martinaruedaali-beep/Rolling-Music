@@ -10,6 +10,7 @@ import PlaylistsDestacadas from "./components/PlaylistsDestacadas/PlaylistsDesta
 import Sidebar from "./components/Sidebar/Sidebar";
 import Playlist from "./components/Playlist";
 import Reproductor from "./components/Reproductor/Reproductor";
+import DetallePlaylist from './components/DetallePlaylist/DetallePlaylist';
 
 function App() {
   return (
@@ -30,17 +31,28 @@ function App() {
       <Route path="/admin" element={<Admin />} />
       <Route path="/registro" element={<Registro />} />
       <Route path="/login" element={<Login />} />
-      <Route
-        path="/favoritos"
-        element={
-          <>
-            <Header />
-            <Sidebar />
-            <PlaylistsDestacadas />
-            <Reproductor />
-          </>
-        }
-      />
+     <Route
+  path="/favoritos"
+  element={
+    <>
+      <Header />
+      <Sidebar />
+      <PlaylistsDestacadas />
+      <Reproductor />
+    </>
+  }
+/>
+<Route
+  path="/playlist/:id"
+  element={
+    <>
+      <Header />
+      <Sidebar />
+      <DetallePlaylist />
+      <Reproductor />
+    </>
+  }
+/>
     </Routes>
   );
 }
