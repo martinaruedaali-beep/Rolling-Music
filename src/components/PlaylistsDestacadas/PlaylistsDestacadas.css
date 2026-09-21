@@ -1,5 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .destacadas {
   padding: 20px;
+  margin-left: 240px;
 }
 
 .destacadas h2 {

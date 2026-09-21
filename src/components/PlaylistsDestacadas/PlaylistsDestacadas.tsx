@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { catalogoAlbums } from '../../data/mockData';
 import './PlaylistsDestacadas.css';
 
@@ -8,12 +9,12 @@ function PlaylistsDestacadas() {
 
       <div className="destacadas-grilla">
         {catalogoAlbums.map((album) => (
-          <div className="tarjeta" key={album.id}>
+          <Link to={`/playlist/${album.id}`} className="tarjeta" key={album.id}>
             <img src={album.coverImage} alt={album.title} />
             <h3>{album.title}</h3>
             <p>{album.genre}</p>
             <p>{album.songs.length} canciones</p>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
