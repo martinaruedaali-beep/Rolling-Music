@@ -21,7 +21,7 @@ export const ModalBuscador = ({
   alCerrar,
   usuarioLogueado,
   alSeleccionarCancion,
-  alAgregarAPlaylist
+  alAgregarAPlaylist,
 }: ModalBuscadorProps) => {
   const [busqueda, setBusqueda] = useState('');
 
