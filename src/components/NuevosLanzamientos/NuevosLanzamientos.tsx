@@ -10,7 +10,7 @@ function NuevosLanzamientos() {
 
   return (
     <section className="lanzamientos">
-      <h2>Nuevos lanzamientos</h2>
+      <h2>Todo lo nuevo para vos.</h2>
 
       <div className="lanzamientos-carrusel">
         {nuevos.map((album) => (
