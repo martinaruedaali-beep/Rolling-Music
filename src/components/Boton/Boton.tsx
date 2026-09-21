@@ -7,11 +7,6 @@ interface BotonProps {
 }
 
 export const Boton: React.FC<BotonProps> = ({ variante = 'primario', children, onClick }) => {
-<<<<<<< HEAD
-  // Evaluamos la clase según la variante
-=======
-
->>>>>>> e4c973d (carpetas ordenadas, con archivos y css en index)
   const claseVariante = variante === 'primario' ? 'btn-primario' : 'btn-contorno';
 
   return (
