@@ -6,14 +6,29 @@ import Reproductor from "../../components/Reproductor/Reproductor";
 import Hero from "../../components/hero/hero";
 import NuevosLanzamientos from "../../components/NuevosLanzamientos/NuevosLanzamientos";
 import Header from '../../components/Header/Header'
-import { obtenerSesion } from '../../services/sesionservice'
+
+const CLAVE_INTRO_VISTA = 'introVista';
 
 function Inicio() {
-  const [mostrarIntro, setMostrarIntro] = useState(true);
-  const sesion = obtenerSesion();
+  const [mostrarIntro, setMostrarIntro] = useState(() => {
+    try {
+      return !localStorage.getItem(CLAVE_INTRO_VISTA);
+    } catch {
+      return true;
+    }
+  });
+
+  const handleIntroFinish = () => {
+    try {
+      localStorage.setItem(CLAVE_INTRO_VISTA, 'true');
+    } catch {
+      // ignorar error de storage
+    }
+    setMostrarIntro(false);
+  };
 
   if (mostrarIntro) {
-    return <Intro onFinish={() => setMostrarIntro(false)} />;
+    return <Intro onFinish={handleIntroFinish} />;
   }
 
 return (
