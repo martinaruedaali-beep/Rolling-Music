@@ -6,6 +6,9 @@ import Admin from './pages/admin/admin'
 import Registro from './components/Registro/Registro'
 import Login from './components/login/login'
 import Header from './components/Header/Header'
+import Sidebar from './components/Sidebar/Sidebar'
+import Playlist from './components/Playlist'
+import Reproductor from './components/Reproductor/Reproductor'
 
 function App() {
   return (
@@ -31,3 +34,4 @@ function App() {
 }
 
 export default App;
+
