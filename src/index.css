@@ -1066,3 +1066,33 @@ tr:hover {
   margin-right: 8px;
   color: var(--primary);
 }
+
+.album-actual-texto {
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.ficha-album-contenedor {
+  background: #181818;
+  border: 1px solid #b30000;
+  border-radius: 8px;
+  padding: 20px;
+  color: #fff;
+  margin: 20px 0;
+}
+
+.ficha-album-titulo {
+  color: #ff4d4d;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+}
+
+.ficha-album-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  font-size: 14px;
+}
+

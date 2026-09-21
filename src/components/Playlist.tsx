@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { FiltrosGenero } from "../components/Filtros/FiltrosGenero";
 import "./Playlist.css";
 
 interface Song {
@@ -18,7 +19,10 @@ interface SavedPlaylist {
 type Tab = "canciones" | "guardadas";
 
 export default function Playlist() {
-  const [songs, setSongs] = useState<Song[]>([
+  const [generoActivo, setGeneroActivo] = useState<string>("");
+  const [albumSeleccionado, setAlbumSeleccionado] = useState<string>("Despedazado por mil partes");
+
+  const [songs] = useState<Song[]>([
     { id: "1", title: "", artist: "", album: "", duration: "" },
     { id: "2", title: "", artist: "", album: "", duration: "" },
     { id: "3", title: "", artist: "", album: "", duration: "" },
@@ -67,6 +71,7 @@ export default function Playlist() {
   return (
     <div className="playlist-screen">
       <h1 className="playlist-title">Mi Playlist</h1>
+      <p className="album-actual-texto">Álbum actual: {albumSeleccionado}</p>
 
       <div className="playlist-tabs">
         <button
@@ -85,6 +90,20 @@ export default function Playlist() {
 
       {activeTab === "canciones" ? (
         <div className="playlist-table-wrap">
+          <FiltrosGenero 
+            generos={["Todo", "Rock", "Hard Rock", "Metal", "Punk"]} 
+            generoActivo={generoActivo}
+            alSeleccionar={(genero: string) => {
+              if (genero === "Todo") {
+                setGeneroActivo("");
+                setAlbumSeleccionado("Despedazado por mil partes");
+              } else {
+                setGeneroActivo(genero);
+                setAlbumSeleccionado(genero);
+              }
+            }}
+          />
+
           <table className="playlist-table">
             <thead>
               <tr>
@@ -155,6 +174,6 @@ export default function Playlist() {
           </form>
         </div>
       )}
-    </div>
+    </div>  
   );
 }
