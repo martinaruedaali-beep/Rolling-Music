@@ -1,0 +1,21 @@
+.detalle-playlist {
+  margin-left: 260px;
+  padding: 100px 20px 120px;
+  box-sizing: border-box;
+}
+
+.detalle-playlist h2 {
+  margin-bottom: 8px;
+}
+
+.detalle-playlist > p {
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .detalle-playlist {
+    margin-left: 0;
+    padding: 90px 12px 120px;
+  }
+}
