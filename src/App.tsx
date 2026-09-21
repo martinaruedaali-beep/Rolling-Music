@@ -16,6 +16,8 @@ import NuevosLanzamientos from './components/NuevosLanzamientos/NuevosLanzamient
 import RutaAdmin from "./components/RutaAdmin/RutaAdmin";
 import { AlbumDetalle } from "./components/AlbumDetalle/AlbumDetalle";
 import CrudMusic from "./components/CrudMusic/CrudMusic";
+import './App.css'
+// comentario para pushear y que el deploy funcione
 
 function App() {
   return (
