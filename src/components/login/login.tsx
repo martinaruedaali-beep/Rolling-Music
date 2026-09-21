@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { obtenerUsuarios } from '../../services/usuarioservice'
 import { iniciarSesion } from '../../services/sesionservice'
+import '../auth.css'
 
 function Login() {
   const navigate = useNavigate()
@@ -25,15 +26,17 @@ function Login() {
     }
 
     iniciarSesion(usuarioEncontrado)
-    navigate('/')
+    navigate(usuarioEncontrado.rol === 'Admin' ? '/admin' : '/')
   }
 
   return (
-    <div>
-      <h1>Iniciar sesión</h1>
+    <div className="auth-page">
+      <section className="auth-card">
+      <h1 className="auth-title">Iniciar sesión</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="auth-form" onSubmit={handleSubmit}>
         <input
+          className="auth-input"
           type="email"
           placeholder="Correo electrónico"
           value={email}
@@ -41,16 +44,18 @@ function Login() {
         />
 
         <input
+          className="auth-input"
           type="password"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit">
+        <button className="auth-button" type="submit">
           Ingresar
         </button>
       </form>
+      </section>
     </div>
   )
 }
