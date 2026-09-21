@@ -3,6 +3,7 @@ import {
   crearUsuario,
   obtenerUsuarios
 } from '../../services/usuarioservice'
+import '../auth.css'
 
 function Registro() {
   const [nombre, setNombre] = useState('')
@@ -43,11 +44,13 @@ function Registro() {
 }
 
   return (
-    <div>
-      <h1>Crear cuenta</h1>
+    <div className="auth-page">
+      <section className="auth-card">
+      <h1 className="auth-title">Crear cuenta</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="auth-form" onSubmit={handleSubmit}>
         <input
+          className="auth-input"
           type="text"
           placeholder="Nombre"
           value={nombre}
@@ -55,6 +58,7 @@ function Registro() {
         />
 
         <input
+          className="auth-input"
           type="text"
           placeholder="Apellido"
           value={apellido}
@@ -62,6 +66,7 @@ function Registro() {
         />
 
         <input
+          className="auth-input"
           type="email"
           placeholder="Correo electrónico"
           value={email}
@@ -69,6 +74,7 @@ function Registro() {
         />
 
         <input
+          className="auth-input"
           type="password"
           placeholder="Contraseña"
           value={password}
@@ -76,16 +82,18 @@ function Registro() {
         />
 
         <input
+          className="auth-input"
           type="password"
           placeholder="Confirmar contraseña"
           value={confirmarPassword}
           onChange={(e) => setConfirmarPassword(e.target.value)}
         />
 
-        <button type="submit">
+        <button className="auth-button" type="submit">
           Registrarse
         </button>
       </form>
+      </section>
     </div>
   )
 }
