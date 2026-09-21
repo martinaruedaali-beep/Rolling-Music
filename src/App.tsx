@@ -12,6 +12,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Playlist from "./components/Playlist";
 import Reproductor from "./components/Reproductor/Reproductor";
 import DetallePlaylist from "./components/DetallePlaylist/DetallePlaylist";
+import NuevosLanzamientos from './components/NuevosLanzamientos/NuevosLanzamientos'
 
 function App() {
   return (
@@ -58,6 +59,17 @@ function App() {
           </>
         }
       />
+      <Route
+  path="/lanzamientos"
+  element={
+    <>
+      <Header />
+      <Sidebar />
+      <NuevosLanzamientos />
+      <Reproductor />
+    </>
+  }
+/>
     </Routes>
   );
 }

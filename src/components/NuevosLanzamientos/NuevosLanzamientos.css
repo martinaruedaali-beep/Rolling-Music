@@ -54,18 +54,29 @@
   margin: 2px 0;
 }
 
-@media (max-width: 768px) {
-  .lanzamientos {
-    margin-left: 0;
-    padding: 90px 12px 120px;
+@media (max-width: 480px) {
+  .lanzamientos h2 {
+    font-size: 20px;
+  }
+
+  .lanzamientos-carrusel {
+    gap: 10px;
   }
 
   .lanzamiento-tarjeta {
-    flex: 0 0 150px;
+    flex: 0 0 130px;
+    padding: 8px;
   }
 
   .lanzamiento-tarjeta img {
-    height: 120px;
+    height: 100px;
+  }
+
+  .lanzamiento-tarjeta h3 {
+    font-size: 14px;
+  }
+
+  .lanzamiento-tarjeta p {
+    font-size: 12px;
   }
 }
-
