@@ -1,12 +1,12 @@
 :root {
 
-* =========================
+  /* =========================
 COLORES PRINCIPALES
-========================= *
+========================= */
 
 
 
---primary: #E50914;        /* Rojo principal */
+  --primary: #E50914;        /* Rojo principal */
 --primary-dark: #A80008;   /* Rojo oscuro */
 --primary-light: #FF1A24;  /* Rojo para hover */
 --background: #050505;     /* Fondo general */
