@@ -48,7 +48,7 @@
 
 .lanzamiento-tarjeta p {
   font-size: 13px;
-  color: #aaa;
+  color: #e0e0e0;
   margin: 2px 0;
 }
 
@@ -85,6 +85,10 @@
 
 .lanzamientos-carrusel {
   scroll-snap-type: x mandatory;
+}
+
+.lanzamientos-carrusel::-webkit-scrollbar {
+  display: none;
 }
 
 .lanzamiento-tarjeta {
